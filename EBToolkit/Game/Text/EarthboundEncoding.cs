@@ -15,16 +15,27 @@ namespace EBToolkit.Game.Text
 			return this.ShiftBytes(base.GetBytes(s), true);
 		}
 
+		public byte[] GetBytesPadded(string s, int size)
+		{
+			byte[] finalArray = new byte[size];
+			byte[] unpadded = GetBytes(s);
+			for (int i = 0; i < finalArray.Length; i++)
+			{
+				finalArray[i] = unpadded[i];
+			}
+			return finalArray;
+		}
+
 		public override string GetString(byte[] bytes)
 		{
 			return base.GetString(this.ShiftBytes(bytes, false));
 		}
 
-		private byte[] ShiftBytes(byte[] original, bool Positive)
+		private byte[] ShiftBytes(byte[] original, bool positive)
 		{
 			for (int i = 0; i < original.Length; i++)
 			{
-				if (Positive)
+				if (positive)
 				{
 					original[i] += this.ByteShift;
 				}

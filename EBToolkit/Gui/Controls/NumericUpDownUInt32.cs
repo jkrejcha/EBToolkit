@@ -6,9 +6,9 @@ namespace EBToolkit.Gui.Controls
 {
 	public class NumericUpDownUInt32 : NumericUpDown
 	{
-		private uint _minimum = 0u;
+		private uint _minimum = UInt32.MinValue;
 
-		private uint _maximum = 4294967295u;
+		private uint _maximum = UInt32.MaxValue;
 
 		private uint _value;
 
@@ -20,7 +20,7 @@ namespace EBToolkit.Gui.Controls
 			}
 		}
 
-		[DefaultValue(0u)]
+		[DefaultValue(UInt32.MinValue)]
 		public new uint Minimum
 		{
 			get
@@ -34,7 +34,7 @@ namespace EBToolkit.Gui.Controls
 			}
 		}
 
-		[DefaultValue(4294967295u)]
+		[DefaultValue(UInt32.MaxValue)]
 		public new uint Maximum
 		{
 			get
@@ -48,7 +48,7 @@ namespace EBToolkit.Gui.Controls
 			}
 		}
 
-		[DefaultValue(0u)]
+		[DefaultValue(UInt32.MinValue)]
 		public new uint Value
 		{
 			get
@@ -64,8 +64,8 @@ namespace EBToolkit.Gui.Controls
 
 		public NumericUpDownUInt32()
 		{
-			this.Minimum = 0u;
-			this.Maximum = 4294967295u;
+			this.Minimum = UInt32.MinValue;
+			this.Maximum = UInt32.MaxValue;
 			this.Value = this.Minimum;
 			base.ValueChanged += new EventHandler(this.SyncValue);
 		}

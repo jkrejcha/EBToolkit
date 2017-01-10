@@ -6,9 +6,9 @@ namespace EBToolkit.Gui.Controls
 {
 	public class NumericUpDownByte : NumericUpDown
 	{
-		private byte _minimum = 0;
+		private byte _minimum = Byte.MinValue;
 
-		private byte _maximum = 255;
+		private byte _maximum = Byte.MaxValue;
 
 		private byte _value;
 
@@ -20,7 +20,7 @@ namespace EBToolkit.Gui.Controls
 			}
 		}
 
-		[DefaultValue(0)]
+		[DefaultValue(Byte.MinValue)]
 		public new byte Minimum
 		{
 			get
@@ -48,7 +48,7 @@ namespace EBToolkit.Gui.Controls
 			}
 		}
 
-		[DefaultValue(0)]
+		[DefaultValue(Byte.MinValue)]
 		public new byte Value
 		{
 			get
@@ -64,8 +64,8 @@ namespace EBToolkit.Gui.Controls
 
 		public NumericUpDownByte()
 		{
-			this.Minimum = 0;
-			this.Maximum = 255;
+			this.Minimum = Byte.MinValue;
+			this.Maximum = Byte.MaxValue;
 			this.Value = this.Minimum;
 			base.ValueChanged += new EventHandler(this.SyncValue);
 		}

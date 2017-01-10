@@ -1,3 +1,4 @@
+using EBToolkit.Gui;
 using System;
 using System.Windows.Forms;
 
@@ -10,7 +11,9 @@ namespace EBToolkit
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new FormMain());
+			//System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ja"); // DEBUG - JAPANESE
+            Application.Run(new FormSaveEditor());
+			//Application.Run(new FormMain());
 		}
 	}
 }

@@ -19,7 +19,7 @@ namespace EBToolkit.Game.Inventory
 			throw new NotImplementedException("Item sorting not implemented yet");
 		}
 
-		public void WriteDataToStream(BinaryWriter Writer)
+		public virtual void WriteDataToStream(BinaryWriter Writer)
 		{
 			Item[] items = this.Items;
 			for (int i = 0; i < items.Length; i++)

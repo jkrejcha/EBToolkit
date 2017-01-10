@@ -6,9 +6,9 @@ namespace EBToolkit.Gui.Controls
 {
 	public class NumericUpDownUInt16 : NumericUpDown
 	{
-		private ushort _minimum = 0;
+		private ushort _minimum = UInt16.MinValue;
 
-		private ushort _maximum = 65535;
+		private ushort _maximum = UInt16.MaxValue;
 
 		private ushort _value;
 
@@ -20,7 +20,7 @@ namespace EBToolkit.Gui.Controls
 			}
 		}
 
-		[DefaultValue(0)]
+		[DefaultValue(UInt16.MinValue)]
 		public new ushort Minimum
 		{
 			get
@@ -48,7 +48,7 @@ namespace EBToolkit.Gui.Controls
 			}
 		}
 
-		[DefaultValue(0)]
+		[DefaultValue(UInt16.MinValue)]
 		public new ushort Value
 		{
 			get
@@ -64,8 +64,8 @@ namespace EBToolkit.Gui.Controls
 
 		public NumericUpDownUInt16()
 		{
-			this.Minimum = 0;
-			this.Maximum = 65535;
+			this.Minimum = UInt16.MinValue;
+			this.Maximum = UInt16.MaxValue;
 			this.Value = this.Minimum;
 			base.ValueChanged += new EventHandler(this.SyncValue);
 		}

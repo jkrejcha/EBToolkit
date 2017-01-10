@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 
 namespace EBToolkit.Game.Character
 {
@@ -6,7 +7,7 @@ namespace EBToolkit.Game.Character
 	/// Represents a statistic that can have a rolling value (in EarthBound this
 	/// is used for <see cref="EarthboundCharacter.HP"/> and <see cref="EarthboundCharacter.PP"/>.
 	/// </summary>
-	public class RollingStat
+	public class RollingStat : EarthboundSaveable
 	{
 		/// <summary>
 		/// The value of this rolling stat. The <see cref="RollingValue"/> will
@@ -27,5 +28,17 @@ namespace EBToolkit.Game.Character
 		/// higher than this, doing so may cause odd glitches.
 		/// </summary>
 		public ushort MaxValue;
+
+		/// <summary>
+		/// Writes <see cref="Value"/> and <see cref="RollingValue"/> to a <see cref="BinaryWriter"/>
+		/// This method does not do anything with the <see cref="MaxValue"/> property.
+		/// </summary>
+		/// <param name="Writer"></param>
+		/// <seealso cref="EarthboundSaveable.WriteDataToStream(BinaryWriter)"/>
+		public void WriteDataToStream(BinaryWriter Writer)
+		{
+			Writer.Write(Value);
+			Writer.Write(RollingValue);
+		}
 	}
 }

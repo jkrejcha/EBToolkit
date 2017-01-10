@@ -1,17 +1,16 @@
 using EBToolkit.Game;
 using EBToolkit.Game.Inventory;
+using EBToolkit.Game.Text;
 using System;
+using System.IO;
 
 namespace EBToolkit.SaveEditor
 {
-	public class EarthboundSave
+	public class EarthboundSave : EarthboundSaveable
 	{
-		/// <summary>
-		/// Offset for ZSNES save states
-		/// </summary>
-		public const int ZSNESFileStart = 0xA3E8;
 		// Location where Escargo Express data is kept.
 		public const int EscargoExpressDataOffset = 0x76;
+		public const int SaveLength = 0x27E; // I think...
 		// Flags
 		public const int FlagOffset = 0x433;
 		public const int FlagLength = 0xCD;
@@ -77,5 +76,55 @@ namespace EBToolkit.SaveEditor
 		/// Timer for Ness' dad to call (I believe).
 		/// </summary>
 		public uint Timer;
+		public TextSpeed TextSpeed;
+		public SoundSetting SoundSetting;
+		public WindowFlavor WindowFlavor;
+
+		public void WriteDataToStream(BinaryWriter Writer)
+		{
+			EarthboundPlainTextEncoding PlainTextEncoding = new EarthboundPlainTextEncoding();
+			Writer.Seek(0x2C, SeekOrigin.Current);
+			Writer.Write(PlainTextEncoding.GetBytesPadded(PlayerName, 7));
+			//Writer.Seek(0x44, SeekOrigin.Begin); // Offset 0x44 for the pet name. should change this later
+			Writer.Write(PlainTextEncoding.GetBytesPadded(PetName, 6));
+			Writer.Write(PlainTextEncoding.GetBytesPadded(FavoriteFood, 6));
+			Writer.Seek(0x04, SeekOrigin.Current); //there's a difference of 4 between the favorite food and favorite thing
+			Writer.Write(PlainTextEncoding.GetBytes(FavoriteThing + " "));
+			Writer.Write(Money);
+			Writer.Write(ATM);
+			Writer.Seek(0x13, SeekOrigin.Current); // please seek 0x13 for more stuffs
+			EscargoExpress.WriteDataToStream(Writer);
+			Location.WriteDataToStream(Writer);
+			//TODO: Right here, write the party
+			ExitMouseLocation.WriteDataToStream(Writer);
+			Writer.Write((byte)TextSpeed);
+			Writer.Write((byte)SoundSetting);
+			Writer.Write(Timer);
+			Writer.Write((byte)WindowFlavor);
+			//TODO: Right here, write event flags
+			throw new NotImplementedException("Party and event flags not implemented");
+		}
+	}
+
+	public enum TextSpeed : byte
+	{
+		Fast = 1,
+		Medium = 2,
+		Slow = 3,
+	}
+
+	public enum SoundSetting : byte
+	{
+		Stereo = 1,
+		Mono = 2,
+	}
+
+	public enum WindowFlavor : byte
+	{
+		Plain = 1,
+		Mint = 2,
+		Strawberry = 3,
+		Banana = 4,
+		Peanut = 5,
 	}
 }
