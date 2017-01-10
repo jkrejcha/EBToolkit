@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/packages/EWSoftware.SHFB.2016.9.17.0
+/EBToolkit/Gui/Controls_OLD
+/Resources

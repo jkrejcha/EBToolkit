@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{50D20650-425C-4ADF-A06A-77F3F55C38EB}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>EBToolkit</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>EBToolkit</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Game\Character\EarthboundCharacter.cs" />
+    <Compile Include="Game\Character\EarthboundEnemy.cs" />
+    <Compile Include="Game\Character\EquipmentChangeableStat.cs" />
+    <Compile Include="Game\Character\EarthboundPartyMember.cs" />
+    <Compile Include="Game\Character\RollingStat.cs" />
+    <Compile Include="Game\Character\Stat.cs" />
+    <Compile Include="Game\EarthboundSaveable.cs" />
+    <Compile Include="Game\Inventory\EscargoExpressInventory.cs" />
+    <Compile Include="Game\Inventory\Inventory.cs" />
+    <Compile Include="Game\Inventory\Item.cs" />
+    <Compile Include="Game\Inventory\PlayerInventory.cs" />
+    <Compile Include="Game\Inventory\SortMethod.cs" />
+    <Compile Include="Game\Point.cs" />
+    <Compile Include="Game\Text\EarthboundEncoding.cs" />
+    <Compile Include="Game\Text\EarthboundPlainTextEncoding.cs" />
+    <Compile Include="Gui\Controls\NumericUpDownByte.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Gui\Controls\NumericUpDownUInt16.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Gui\Controls\NumericUpDownUInt32.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Gui\Controls_OLD\NumericUpDownUInt32.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Gui\FormGuiTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.cs" />
+    <Compile Include="Properties\Settings.cs" />
+    <Compile Include="SaveEditor\EarthboundSave.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <DependentUpon>Resources.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Gui\EBToolkit.Gui_BAK\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
