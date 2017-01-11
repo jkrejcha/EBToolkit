@@ -8,17 +8,18 @@ namespace EBToolkit.SaveEditor
 {
 	/// <summary>
 	/// A class that represents a save file in the game EarthBound. This is a
-	/// container for three objects of <see cref="EarthboundSave"/> and contains
-	/// methods for loading and saving save files.
+	/// container for <see cref="SaveCount"/> objects of <see cref="EarthboundSave"/>
+	///  and contains methods for loading and saving save files.
 	/// </summary>
 	public class EarthboundSaveFile
 	{
+		public const int SaveCount = 3;
 		/// <summary>
 		/// Offset for ZSNES save states
 		/// </summary>
 		public const int ZSNESFileStart = 0xA3E8;
 
-		public readonly EarthboundSave[] Saves = new EarthboundSave[3];
+		public readonly EarthboundSave[] Saves = new EarthboundSave[SaveCount];
 		public readonly bool ZSNESSavestate;
 
 		/// <summary>

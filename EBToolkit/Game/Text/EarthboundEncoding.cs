@@ -15,6 +15,14 @@ namespace EBToolkit.Game.Text
 			return this.ShiftBytes(base.GetBytes(s), true);
 		}
 
+		/// <summary>
+		/// Gets a string padded to a specific size. This has the effect of limiting
+		/// the string to be a certain size, and padding with 0x00 (ASCII NUL characters)
+		/// if the string is not long enough.
+		/// </summary>
+		/// <param name="s"></param>
+		/// <param name="size"></param>
+		/// <returns></returns>
 		public byte[] GetBytesPadded(string s, int size)
 		{
 			byte[] finalArray = new byte[size];
