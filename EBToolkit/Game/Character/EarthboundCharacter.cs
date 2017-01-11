@@ -1,7 +1,9 @@
 using System;
-
 namespace EBToolkit.Game.Character
 {
+	/// <summary>
+	/// Represents a character (playable, NPC, or foe) in EarthBound
+	/// </summary>
 	public class EarthboundCharacter
 	{
 		/// <summary>
@@ -65,9 +67,9 @@ namespace EBToolkit.Game.Character
 
 		public int Experience;
 
-		public static PermanentStatusEffect PermanentStatusEffect;
+		public PermanentStatusEffect PermanentStatusEffect;
 
-		public static PossessionStatus PossessionStatus;
+		public PossessionStatus PossessionStatus;
 
 		/// <summary>
 		/// Gets an estimated chance of surviving mortal damage (for PCs/NPCs)

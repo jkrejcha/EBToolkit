@@ -30,6 +30,9 @@
   <PropertyGroup>
     <StartupObject>EBToolkit.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\EBToolkit.XML</DocumentationFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
