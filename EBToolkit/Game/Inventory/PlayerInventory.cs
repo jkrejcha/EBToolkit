@@ -8,8 +8,14 @@ namespace EBToolkit.Game.Inventory
 	/// </summary>
 	public class PlayerInventory : Inventory
 	{
+		/// <summary>
+		/// The size of a player's inventory
+		/// </summary>
 		public const int PlayerInventorySize = 14;
 
+		/// <summary>
+		/// A byte array containing the indexes of the equipped items
+		/// </summary>
 		public readonly byte[] Equips = { 0, 0, 0, 0 };
 
 		public PlayerInventory() : base(PlayerInventorySize) { }

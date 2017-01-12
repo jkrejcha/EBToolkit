@@ -1,8 +1,10 @@
 using System;
+
 namespace EBToolkit.Game.Character
 {
 	/// <summary>
-	/// Represents a character (playable, NPC, or foe) in EarthBound
+	/// Base class for representing a character (playable, NPC, or foe) in
+	/// EarthBound. This class should only be directly institated for NPCs.
 	/// </summary>
 	public class EarthboundCharacter
 	{
@@ -57,7 +59,7 @@ namespace EBToolkit.Game.Character
 		public EquipmentChangeableStat Speed;
 		//TODO: Document the rest of the stats.
 		/// <summary>
-		/// Guts.
+		/// Guts. Affects the rate of SMAAAASH! attacks
 		/// </summary>
 		public EquipmentChangeableStat Guts;
 

@@ -9,14 +9,35 @@ namespace EBToolkit.SaveEditor
 {
 	public class EarthboundSave : EarthboundSaveable
 	{
+		/// <summary>
+		/// The amount of event flags in EarthBound.
+		/// </summary>
 		public const int EventFlagSize = 1640;
+		/// <summary>
+		/// The maximum amount of characters used in the names for the
+		/// <see cref="PetName"/>, <see cref="FavoriteFood"/>, and <see cref="FavoriteThing"/>
+		/// </summary>
+		/// <seealso cref="PetName"/>
+		/// <seealso cref="FavoriteFood"/>
+		/// <seealso cref="FavoriteThing"/>
 		public const int NameSize = 6;
+		/// <summary>
+		/// The amount of controllable party members
+		/// </summary>
 		public const int PartySize = 4;
+		/// <summary>
+		/// The maximum amount of characters in the player's name (<see cref="PlayerName"/>)
+		/// </summary>
+		/// <seealso cref="PlayerName"/>
 		public const int PlayerNameSize = 24;
-		// Location where Escargo Express data is kept.
+		/// <summary>
+		/// Where Escargo Express data is being kept in the save file
+		/// </summary>
+		[Obsolete("A BinaryWriter is being used here instead")]
 		public const int EscargoExpressDataOffset = 0x76;
 		public const int SaveLength = 0x27E; // I think...
 		// Flags
+		[Obsolete("A BinaryWriter is being used instead")]
 		public const int FlagOffset = 0x433;
 		
 		//TODO: Maybe Mother 2 support sometime?
@@ -142,21 +163,51 @@ namespace EBToolkit.SaveEditor
 		}
 	}
 
+	/// <summary>
+	/// An enum value representing the speed at which text flows in the in-game
+	/// dialogue and text.
+	/// </summary>
 	public enum TextSpeed : byte
 	{
+		/// <summary>
+		/// Fast text speed (2 frames per character).
+		/// </summary>
 		Fast = 1,
+		/// <summary>
+		/// Medium text speed.
+		/// </summary>
 		Medium = 2,
+		/// <summary>
+		/// Slow text speed. In battle, this requires the player to press the A
+		/// button in some circumstances.
+		/// </summary>
 		Slow = 3,
 	}
 
+	/// <summary>
+	/// An enum value representing how sound is played
+	/// </summary>
 	public enum SoundSetting : byte
 	{
+		/// <summary>
+		/// Stereo (two-channels) sound is used. 
+		/// </summary>
 		Stereo = 1,
+		/// <summary>
+		/// Mono (one-channel) sound is used
+		/// </summary>
 		Mono = 2,
 	}
 
+	/// <summary>
+	/// An enum value represneting the style of text windows
+	/// </summary>
 	public enum WindowFlavor : byte
 	{
+		/// <summary>
+		/// Standard window with a black background in text windows and blue in
+		/// the HP and PP windows.
+		/// </summary>
 		Plain = 1,
 		Mint = 2,
 		Strawberry = 3,
