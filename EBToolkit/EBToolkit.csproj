@@ -44,6 +44,8 @@
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Game\Background.cs" />
+    <Compile Include="Game\BattleFormation.cs" />
     <Compile Include="Game\Character\EarthboundCharacter.cs" />
     <Compile Include="Game\Character\EarthboundEnemy.cs" />
     <Compile Include="Game\Character\EquipmentChangeableStat.cs" />

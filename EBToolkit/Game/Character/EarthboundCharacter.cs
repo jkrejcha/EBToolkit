@@ -4,9 +4,11 @@ namespace EBToolkit.Game.Character
 {
 	/// <summary>
 	/// Base class for representing a character (playable, NPC, or foe) in
-	/// EarthBound. This class should only be directly institated for NPCs.
+	/// EarthBound. NPCs are treated the same as enemies
 	/// </summary>
-	public class EarthboundCharacter
+	/// <seealso cref="EarthboundPartyMember"/>
+	/// <seealso cref="EarthboundEnemy"/>
+	public abstract class EarthboundCharacter
 	{
 		/// <summary>
 		/// Represents the name that is given to this character. This is either fixed
