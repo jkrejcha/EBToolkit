@@ -81,9 +81,11 @@ namespace EBToolkit.Game.Character
 		/// </summary>
 		/// <returns><see cref="Guts"/>/500 or 1/20, whichever is higher</returns>
 		/// <seealso cref="Guts"/>
+		/// <remarks>
+		/// This function is adapted from the equation on the <a href="https://starmen.net/mother2/gameinfo/technical/equations.php">Starmen.net equations page</a>.
+		/// </remarks>
 		public double GetGutsChance()
 		{
-			// Taken from Starmen.net
 			return Math.Max((double)(this.Guts / 500), 1.0 / 20);
 		}
 	}

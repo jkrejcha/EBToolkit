@@ -48,6 +48,7 @@
     <Compile Include="Game\BattleFormation.cs" />
     <Compile Include="Game\Character\EarthboundCharacter.cs" />
     <Compile Include="Game\Character\EarthboundEnemy.cs" />
+    <Compile Include="Game\Character\EarthboundParty.cs" />
     <Compile Include="Game\Character\EquipmentChangeableStat.cs" />
     <Compile Include="Game\Character\EarthboundPartyMember.cs" />
     <Compile Include="Game\Character\RollingStat.cs" />

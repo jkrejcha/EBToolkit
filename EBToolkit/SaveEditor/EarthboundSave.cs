@@ -116,7 +116,7 @@ namespace EBToolkit.SaveEditor
 		/// <summary>
 		/// Party members
 		/// </summary>
-		public readonly EarthboundPartyMember[] Party = new EarthboundPartyMember[PartySize];
+		public readonly EarthboundParty Party = new EarthboundParty();
 		/// <summary>
 		/// Event flags, used for triggering various events and actions within the game
 		/// </summary>
@@ -146,10 +146,7 @@ namespace EBToolkit.SaveEditor
 			Writer.Write((byte)SoundSetting);
 			Writer.Write(Timer);
 			Writer.Write((byte)WindowFlavor);
-			foreach (EarthboundPartyMember partyMember in Party)
-			{
-				partyMember.WriteDataToStream(Writer);
-			}
+			Party.WriteDataToStream(Writer);
 			for (int eventFlagIndex = 0; eventFlagIndex < EventFlagSize; eventFlagIndex++)
 			{
 				byte eventFlagByte = 0;
