@@ -69,7 +69,7 @@ namespace EBToolkit.Game.Character
 
 		public byte Level;
 
-		public int Experience;
+		public uint Experience;
 
 		public PermanentStatusEffect PermanentStatusEffect;
 

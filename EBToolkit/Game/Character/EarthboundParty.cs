@@ -14,6 +14,21 @@ namespace EBToolkit.Game.Character
 	public class EarthboundParty : EarthboundSaveable
 	{
 		/// <summary>
+		/// The amount of experience "gained" by the party when the playable party
+		/// wins and dies at the same time. A <a href="https://en.wikipedia.org/wiki/Division_by_zero">division by zero</a>
+		/// error occurs when experience is attempted to split between the zero
+		/// alive party members, causing it to underflow to this value. For more
+		/// information, please see the
+		/// <a href="http://earthboundcentral.com/2009/09/simultaneous-defeat-glitch/">Simultaneous Defeat Glitch</a>
+		/// page on EarthBound Central.
+		/// </summary>
+		/// <remarks>
+		/// It is unknown if this value is the same when three or more party 
+		/// members as the text window that displays the experience gained
+		/// glitches as well. 
+		/// </remarks>
+		public const uint DeathGlitchExperience = 4294940287;
+		/// <summary>
 		/// The playable characters there are in EarthBound
 		/// </summary>
 		public const int PlayableCharacterCount = 4;
@@ -53,12 +68,23 @@ namespace EBToolkit.Game.Character
 		/// battle group
 		/// </summary>
 		/// <param name="Group">The battle group to use</param>
-		/// <returns>An <see cref="int"/> representing the amount of experience
-		/// each <see cref="EarthboundPartyMember"/> recieves</returns>
-		public int GetPerCharacterExperienceOnWin(BattleGroup Group)
+		/// <returns>An <see cref="uint"/> representing the amount of experience
+		/// each <see cref="EarthboundPartyMember"/> recieves or 
+		/// <see cref="DeathGlitchExperience"/> if no consicous members are alive</returns>
+		/// <remarks>
+		/// Due to a glitch in the programming, a division by zero error can
+		/// occur if all playable characters die and win at the same time
+		/// (this can happen with enemies that explode upon death).
+		/// </remarks>
+		/// <seealso cref="GetConsciousCharacters(bool)"/>
+		/// <seealso cref="BattleGroup"/>
+		/// <seealso cref="BattleGroup.TotalExperience"/>
+		/// <seealso cref="DeathGlitchExperience"/>
+		public uint GetPerCharacterExperienceOnWin(BattleGroup Group)
 		{
-            //TODO: If no alive characters...
-			return Group.TotalExperience / GetConsciousCharacters().Count();
+			uint Alive = (uint)GetConsciousCharacters().Length;
+			if (Alive == 0) return DeathGlitchExperience;
+			return Group.TotalExperience / Alive;
 		}
 
 		/// <summary>
@@ -114,7 +140,7 @@ namespace EBToolkit.Game.Character
 		/// <returns></returns>
 		public EarthboundPartyMember[] GetNonAfflictedCharacters()
 		{
-			//TODO: Document.
+			//TODO: Document properly.
 			//TODO: Probably make this more efficient.
 			//TODO: Return only characters that are in the current party
 			List<EarthboundPartyMember> NonAfflictedCharacters = PlayableParty.ToList();
@@ -132,11 +158,15 @@ namespace EBToolkit.Game.Character
 			return NonAfflictedCharacters.ToArray();
 		}
 
-		public int SumOfLevels
+		/// <summary>
+		/// A value which is equivalent to each of the playable character's
+		/// levels added together
+		/// </summary>
+		public ushort SumOfLevels
 		{
 			get
 			{
-				int Level = 0;
+				ushort Level = 0;
 				foreach (EarthboundPartyMember PartyMember in PlayableParty) Level += PartyMember.Level;
 				return Level;
 			}

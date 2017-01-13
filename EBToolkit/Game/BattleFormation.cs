@@ -20,11 +20,11 @@ namespace EBToolkit.Game
 		/// Gets the total experience that is gathered on defeat of this battle
 		/// group
 		/// </summary>
-		public int TotalExperience
+		public uint TotalExperience
 		{
 			get
 			{
-				int Exp = 0;
+				uint Exp = 0;
 				foreach (EarthboundEnemy Enemy in Enemies) Exp += Enemy.Experience;
 				return Exp;
 			}

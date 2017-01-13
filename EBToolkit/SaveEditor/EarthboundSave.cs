@@ -147,6 +147,7 @@ namespace EBToolkit.SaveEditor
 			Writer.Write(Timer);
 			Writer.Write((byte)WindowFlavor);
 			Party.WriteDataToStream(Writer);
+			//TODO: Maybe change the below to a BitArray?
 			for (int eventFlagIndex = 0; eventFlagIndex < EventFlagSize; eventFlagIndex++)
 			{
 				byte eventFlagByte = 0;

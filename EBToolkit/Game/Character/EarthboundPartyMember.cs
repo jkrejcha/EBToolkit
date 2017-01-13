@@ -6,7 +6,7 @@ using System.IO;
 namespace EBToolkit.Game.Character
 {
 	/// <summary>
-	/// Represents a party member in the game EarthBound. Party memmbers have two
+	/// Represents a party member in the game EarthBound. Party members have two
 	/// extra stats that other <see cref="EarthboundCharacter"/>s do not.
 	/// </summary>
 	public class EarthboundPartyMember : EarthboundCharacter, EarthboundSaveable
@@ -93,6 +93,7 @@ namespace EBToolkit.Game.Character
 			return this.IQ * (ushort)PsychicPointsState;
 		}
 
+		/// <inheritdoc/>
 		public void WriteDataToStream(BinaryWriter Writer)
 		{
 			EarthboundPlainTextEncoding PlainTextEncoding = new EarthboundPlainTextEncoding();
