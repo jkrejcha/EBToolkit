@@ -9,11 +9,11 @@ namespace EBToolkit.SaveEditor
 	/// <summary>
 	/// A class that represents a save file in the game EarthBound. This is a
 	/// container for <see cref="GameSaveCount"/> objects of <see cref="EarthboundSave"/>
-	/// and contains methods for loading and saving save files.
-	/// </summary>
+	/// and contains methods for loading and saving save files. 
 	/// <b style="color:red">Many methods in this class are subject to change
 	/// and are not guaranteed to be fully functional (even moreso than the
 	/// rest of the project).</b>
+	/// </summary>
 	public class EarthboundSaveFile
 	{
 		/// <summary>

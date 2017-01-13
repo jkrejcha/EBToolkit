@@ -38,6 +38,9 @@
     <DocumentationSources>
       <DocumentationSource sourceFile="..\EBToolkit\EBToolkit.csproj" xmlns="" />
     </DocumentationSources>
+    <NamespaceSummaries>
+      <NamespaceSummaryItem name="EBToolkit" isDocumented="True" xmlns="">The base namespace for classes and interfaces that are used by EarthBound Toolkit.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="EBToolkit.Game" isDocumented="True" xmlns="">Namespace for classes and interfaces that provide code for the base game, EarthBound.</NamespaceSummaryItem></NamespaceSummaries>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->
