@@ -23,6 +23,13 @@ namespace EBToolkit.Game.Inventory
 			this.Items = new Item[size];
 		}
 
+		public void Sort(SortMethod Method)
+		{
+			Item[] NewItems = new Item[0];
+			Array.Copy(this.Items, NewItems, this.Items.Length);
+			throw new NotImplementedException("Item sorting not implemented yet");
+		}
+
 		/// <inheritdoc/>
 		public virtual void WriteDataToStream(BinaryWriter Writer)
 		{
