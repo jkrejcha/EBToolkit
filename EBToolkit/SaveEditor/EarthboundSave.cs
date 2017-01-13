@@ -7,6 +7,11 @@ using System.IO;
 
 namespace EBToolkit.SaveEditor
 {
+	/// <summary>
+	/// A save file for the game EarthBound which contains data such as the
+	/// favorite thing, food, names, event flags, characters, and other data
+	/// needed for the game to work
+	/// </summary>
 	public class EarthboundSave : EarthboundSaveable
 	{
 		/// <summary>
@@ -22,10 +27,6 @@ namespace EBToolkit.SaveEditor
 		/// <seealso cref="FavoriteThing"/>
 		public const int NameSize = 6;
 		/// <summary>
-		/// The amount of controllable party members
-		/// </summary>
-		public const int PartySize = 4;
-		/// <summary>
 		/// The maximum amount of characters in the player's name (<see cref="PlayerName"/>)
 		/// </summary>
 		/// <seealso cref="PlayerName"/>
@@ -35,8 +36,13 @@ namespace EBToolkit.SaveEditor
 		/// </summary>
 		[Obsolete("A BinaryWriter is being used here instead")]
 		public const int EscargoExpressDataOffset = 0x76;
+		/// <summary>
+		/// The size of the save file in bytes (I'm not entirely sure of this value).
+		/// </summary>
 		public const int SaveLength = 0x27E; // I think...
-		// Flags
+		/// <summary>
+		/// The offset in the save where flags are being stored
+		/// </summary>
 		[Obsolete("A BinaryWriter is being used instead")]
 		public const int FlagOffset = 0x433;
 		
@@ -122,6 +128,7 @@ namespace EBToolkit.SaveEditor
 		/// </summary>
 		public readonly bool[] EventFlags = new bool[EventFlagSize];
 
+		/// <inheritdoc/>
 		public void WriteDataToStream(BinaryWriter Writer)
 		{
 			EarthboundPlainTextEncoding PlainTextEncoding = new EarthboundPlainTextEncoding();
@@ -203,13 +210,29 @@ namespace EBToolkit.SaveEditor
 	public enum WindowFlavor : byte
 	{
 		/// <summary>
-		/// Standard window with a black background in text windows and blue in
-		/// the HP and PP windows.
+		/// A standard window type with a black background and white borders
+		/// in text windows and purple in the status windows.
 		/// </summary>
 		Plain = 1,
+		/// <summary>
+		/// A mint flavored window type with a slight red background, and blue
+		/// as the border of text windows and background of status windows.
+		/// </summary>
 		Mint = 2,
+		/// <summary>
+		/// A strawberry flavored window type with a slight red background, and 
+		/// red as the border of text windows and background of status windows.
+		/// </summary>
 		Strawberry = 3,
+		/// <summary>
+		/// A banana flavored window type with a slight red background, and yellow
+		/// as the border of text windows and background of status windows.
+		/// </summary>
 		Banana = 4,
+		/// <summary>
+		/// A peanut flavored window type with a slight red background, and orange
+		/// as the border of text windows and background of status windows.
+		/// </summary>
 		Peanut = 5,
 	}
 }

@@ -61,18 +61,40 @@ namespace EBToolkit.Game.Character
 		public EquipmentChangeableStat Speed;
 		//TODO: Document the rest of the stats.
 		/// <summary>
-		/// Guts. Affects the rate of SMAAAASH! attacks
+		/// Guts. Affects the rate of SMAAAASH! attacks and the ability to survive
+		/// mortal damage for a <see cref="EarthboundPartyMember">playable character</see>
+		/// or NPC.
 		/// </summary>
 		public EquipmentChangeableStat Guts;
 
+		/// <summary>
+		/// Luck. Affects whether certain PSI moves and offensive items will work.
+		/// This also affects whether attacks that can <see cref="PermanentStatusEffect.Diamondization">diamondize</see>
+		/// will succeed.
+		/// </summary>
 		public EquipmentChangeableStat Luck;
 
+		/// <summary>
+		/// The level a character is at. This affects whether a certain enemy
+		/// will run from the playable characters.
+		/// </summary>
 		public byte Level;
 
+		/// <summary>
+		/// Experience points that the character has or will be split among
+		/// the <see cref="EarthboundParty">party</see> on defeat.
+		/// </summary>
 		public uint Experience;
 
+		/// <summary>
+		/// The <see cref="PermanentStatusEffect"/> that this character currently
+	    /// has. 
+		/// </summary>
 		public PermanentStatusEffect PermanentStatusEffect;
 
+		/// <summary>
+		/// The <see cref="PossessionStatus"/> that this character currently has.
+		/// </summary>
 		public PossessionStatus PossessionStatus;
 
 		/// <summary>
@@ -89,7 +111,23 @@ namespace EBToolkit.Game.Character
 			return Math.Max((double)(this.Guts / 500), 1.0 / 20);
 		}
 	}
-	
+
+	/// <summary>
+	/// A status effect that is applied to this <see cref="EarthboundCharacter">character</see>
+	/// permanently (or until a higher level status effect overrides 
+	/// or a healing heals it away). This can work in conjunction with a 
+	/// <see cref="PossessionStatus"/>.
+	/// </summary>
+	/// <remarks>
+	/// In EarthBound, with the exception of <see cref="Normal"/>, the lower
+	/// numbered status effects take precedence over higher numbered ones. This
+	/// means that, for example, a <see cref="EarthboundCharacter"/> who has
+	/// <see cref="Paralysis"/> cannot get <see cref="Sunstroke"/> or a
+	/// <see cref="Cold"/>. This also means that a character who, for example,
+	/// has <see cref="Nausea"/> can get <see cref="Paralysis"/> or another
+	/// higher level status effect.
+	/// </remarks>
+	/// <seealso cref="PossessionStatus"/>
 	public enum PermanentStatusEffect : byte
 	{
 		/// <summary>
@@ -112,26 +150,66 @@ namespace EBToolkit.Game.Character
 		/// moves in battle and makes them unable to use items.
 		/// </summary>
 		Paralysis = 3,
-		//TODO: Document the other Permanent Status Effects
+		/// <summary>
+		/// A status effect that deals high level damage every turn and every
+		/// few seconds out of battle
+		/// </summary>
+		/// <seealso cref="Poison"/>
+		/// <seealso cref="Sunstroke"/>
+		/// <seealso cref="Cold"/>
 		Nausea = 4,
+		/// <summary>
+		/// A status effect that deals mid level damage every turn and every
+		/// few seconds out of battle.
+		/// </summary>
+		/// <seealso cref="Nausea"/>
+		/// <seealso cref="Sunstroke"/>
+		/// <seealso cref="Cold"/>
 		Poison = 5,
+		/// <summary>
+		/// A status effect that deals low level damage every turn and every
+		/// few seconds out of battle
+		/// </summary>
+		/// <seealso cref="Nausea"/>
+		/// <seealso cref="Poison"/>
+		/// <seealso cref="Cold"/>
 		Sunstroke = 6,
+		/// <summary>
+		/// A status effect that deals little damage every turn and every few
+		/// seconds out of battle
+		/// </summary>
+		/// <seealso cref="Nausea"/>
+		/// <seealso cref="Poison"/>
+		/// <seealso cref="Sunstroke"/>
 		Cold = 7,
 	}
 
+	/// <summary>
+	/// A status effect that is applied to this <see cref="EarthboundCharacter">character</see>
+	/// permanently (or until a higher level status effect overrides 
+	/// or a healing heals it away). This can work in conjunction with a 
+	/// <see cref="PermanentStatusEffect"/>.
+	/// </summary>
+	/// <remarks>
+	/// In EarthBound, with the exception of <see cref="Normal"/>, the lower
+	/// numbered status effects take precedence over higher numbered ones. This
+	/// means that, for example, a <see cref="EarthboundCharacter"/> who is
+	/// <see cref="Mushroomization">mushroomized</see> cannot be
+	/// <see cref="Possession">possessed</see>, however the other way around works.
+	/// </remarks>
 	public enum PossessionStatus : byte
 	{
 		/// <summary>
 		/// Everything is normal and happy. :)
 		/// </summary>
-		Normal,
+		Normal = 0,
 		/// <summary>
 		/// Whether this character is mushroomized/mashroomized. If this
 		/// is present, similar effects to the "feeling strange" status
 		/// effect occur in battle. Overworld directional controls are also
 		/// changed every period of time.
 		/// </summary>
-		Mushroomization,
+		Mushroomization = 1,
 		/// <summary>
 		/// Whether this character is possessed. Represents whether the 
 		/// Tiny Lil' Ghost is present.
@@ -139,6 +217,6 @@ namespace EBToolkit.Game.Character
 		/// <remarks>
 		/// oOoOoOo SPOOKY!
 		/// </remarks>
-		Possession,
+		Possession = 2,
 	}
 }

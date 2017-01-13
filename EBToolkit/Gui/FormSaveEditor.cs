@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace EBToolkit.Gui
 {
+	/// <summary>
+	/// A <see cref="Form"/> for the savegame editor
+	/// </summary>
 	public partial class FormSaveEditor : Form
 	{
+		/// <summary>
+		/// Creates a new <see cref="FormSaveEditor"/>
+		/// </summary>
+		/// <seealso cref="FormSaveEditor"/>
 		public FormSaveEditor()
 		{
 			InitializeComponent();

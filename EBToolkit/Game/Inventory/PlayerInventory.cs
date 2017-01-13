@@ -18,6 +18,10 @@ namespace EBToolkit.Game.Inventory
 		/// </summary>
 		public readonly byte[] Equips = { 0, 0, 0, 0 };
 
+		/// <summary>
+		/// Creates a new <see cref="PlayerInventory"/> with a size of
+		/// <see cref="PlayerInventorySize"/>
+		/// </summary>
 		public PlayerInventory() : base(PlayerInventorySize) { }
 
 		/// <inheritdoc/>

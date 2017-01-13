@@ -74,9 +74,6 @@ namespace EBToolkit.Gui.Controls
 		/// <summary>
 		/// The value of this control. Defaults to <see cref="Byte.MinValue"/>
 		/// </summary>
-		/// <seealso cref="Byte.MinValue"/>
-		/// <seealso cref="Minimum"/>
-		/// <seealso cref="Maximum"/>
 		[DefaultValue(Byte.MinValue)]
 		public new byte Value
 		{
@@ -91,9 +88,6 @@ namespace EBToolkit.Gui.Controls
 			}
 		}
 
-		/// <summary>
-		/// Creates a new instance of a <see cref="NumericUpDownByte"/>
-		/// </summary>
 		public NumericUpDownByte()
 		{
 			this.Minimum = Byte.MinValue;
@@ -102,12 +96,6 @@ namespace EBToolkit.Gui.Controls
 			base.ValueChanged += new EventHandler(this.SyncValue);
 		}
 
-		/// <summary>
-		/// A private helper method to sync the value of this control with
-		/// the value of the underlying <see cref="NumericUpDown.Value"/>
-		/// </summary>
-		/// <param name="sender">Sender info. Ignored.</param>
-		/// <param name="args">EventArgs. Ignored.</param>
 		private void SyncValue(object sender, EventArgs args)
 		{
 			this._value = (byte)base.Value;

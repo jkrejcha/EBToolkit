@@ -61,6 +61,10 @@ namespace EBToolkit.Game.Character
 			Female = 2,
 		}
 
+		/// <summary>
+		/// The type of enemy that this enemy is. This affects whether some
+		/// offensive items will work against this enemy
+		/// </summary>
 		public enum EnemyType : byte
 		{
 			/// <summary>

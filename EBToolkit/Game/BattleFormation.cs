@@ -13,12 +13,19 @@ namespace EBToolkit.Game
 	/// </summary>
 	public class BattleGroup
 	{
+		/// <summary>
+		/// The background that is used which the <see cref="EarthboundParty">party</see>
+		/// encounter this group in battle
+		/// </summary>
 		public readonly Background BattleBackground;
-		public EarthboundEnemy[] Enemies;
 
 		/// <summary>
-		/// Gets the total experience that is gathered on defeat of this battle
-		/// group
+		/// The enemies that are in this <see cref="BattleGroup"/>
+		/// </summary>
+		public readonly EarthboundEnemy[] Enemies;
+
+		/// <summary>
+		/// The total experience that is gathered on defeat of this battle group
 		/// </summary>
 		public uint TotalExperience
 		{

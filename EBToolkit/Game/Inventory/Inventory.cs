@@ -23,7 +23,11 @@ namespace EBToolkit.Game.Inventory
 			this.Items = new Item[size];
 		}
 
-		public void Sort(SortMethod Method)
+		/// <summary>
+		/// Sort items in the inventory according to a specific method.
+		/// </summary>
+		/// <param name="method">The method to sort items by</param>
+		public void Sort(SortMethod method)
 		{
 			Item[] NewItems = new Item[0];
 			Array.Copy(this.Items, NewItems, this.Items.Length);
@@ -39,6 +43,25 @@ namespace EBToolkit.Game.Inventory
 				Item Item = items[i];
 				Writer.Write((byte)Item);
 			}
+		}
+
+		/// <summary>
+		/// The method to sort items by
+		/// </summary>
+		public enum SortMethod
+		{
+			/// <summary>
+			/// Sort items by how good they are
+			/// </summary>
+			Best,
+			/// <summary>
+			/// Sort items by their English name
+			/// </summary>
+			Alpha,
+			/// <summary>
+			/// Sort items by their numeric ID
+			/// </summary>
+			Numeric,
 		}
 	}
 }
