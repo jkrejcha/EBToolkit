@@ -27,6 +27,16 @@ namespace EBToolkit.SaveEditor
 		/// <seealso cref="FavoriteThing"/>
 		public const int NameSize = 6;
 		/// <summary>
+		/// The maximum amount of characters in the player's Japanese name in
+		/// Mother 2.
+		/// </summary>
+		/// <remarks>
+		/// This constant is still relevant in EarthBound because the first
+		/// twelve characters of a player's name (spaces replaced with K), are
+		/// saved in EarthBound as well.
+		/// </remarks>
+		public const int JapanesePlayerNameSize = 12;
+		/// <summary>
 		/// The maximum amount of characters in the player's name (<see cref="PlayerName"/>)
 		/// </summary>
 		/// <seealso cref="PlayerName"/>
@@ -45,7 +55,9 @@ namespace EBToolkit.SaveEditor
 		/// </summary>
 		[Obsolete("A BinaryWriter is being used instead")]
 		public const int FlagOffset = 0x433;
-
+		
+		//TODO: Decide whether this should be part of the "save" class or the
+		//save file one.
 		/// <summary>
 		/// The magic string that denotes this is an EarthBound save file.
 		/// </summary>
@@ -118,12 +130,13 @@ namespace EBToolkit.SaveEditor
 		/// </summary>
 		public Point Location;
 		/// <summary>
-		/// The location that the exit mouse will go towards when used.
+		/// The location that the exit mouse will teleport the party to when
+		/// used in a location that supports it.
 		/// </summary>
 		public Point ExitMouseLocation;
 		//TODO: Verify.
 		/// <summary>
-		/// Timer for Ness' dad to call (I believe).
+		/// In-game timer of some sort
 		/// </summary>
 		public uint Timer;
 		/// <summary>
@@ -131,7 +144,8 @@ namespace EBToolkit.SaveEditor
 		/// </summary>
 		public TextSpeed TextSpeed;
 		/// <summary>
-		/// Whether Stereo or Mono sound should be used.
+		/// Whether <see cref="SoundSetting.Stereo"/>Stereo or 
+		/// <see cref="SoundSetting.Mono"/>sound should be used.
 		/// </summary>
 		public SoundSetting SoundSetting;
 		/// <summary>
@@ -187,7 +201,6 @@ namespace EBToolkit.SaveEditor
 			Writer.Write(Timer);
 			Writer.Write((byte)WindowFlavor);
 			Party.WriteDataToStream(Writer);
-			//TODO: Maybe change the below to a BitArray?
 			for (int eventFlagIndex = 0; eventFlagIndex < EventFlagSize; eventFlagIndex++)
 			{
 				byte eventFlagByte = 0;
@@ -228,7 +241,7 @@ namespace EBToolkit.SaveEditor
 	public enum SoundSetting : byte
 	{
 		/// <summary>
-		/// Stereo (two-channels) sound is used. 
+		/// Stereo (two-channel) sound is used. 
 		/// </summary>
 		Stereo = 1,
 		/// <summary>

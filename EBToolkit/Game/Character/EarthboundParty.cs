@@ -108,25 +108,22 @@ namespace EBToolkit.Game.Character
 		/// <summary>
 		/// Gets the characters who are not <see cref="PermanentStatusEffect.Unconsciousness">unconscious</see>
 		/// </summary>
-		/// <param name="CountDiamondizationAsUnconsciousness">Whether to count
+		/// <param name="DiscludeDiamondized">Whether to count
 		/// <see cref="PermanentStatusEffect.Diamondization"/> as unconsciousness</param>
 		/// <returns>An array of playable characters that are not <see cref="PermanentStatusEffect.Unconsciousness">unconscious</see></returns>
 		/// <seealso cref="PermanentStatusEffect"/>
 		/// <seealso cref="PermanentStatusEffect.Unconsciousness"/>
 		/// <seealso cref="PermanentStatusEffect.Diamondization"/>
 		/// <seealso cref="EarthboundPartyMember"/>
-		public EarthboundPartyMember[] GetConsciousCharacters(bool CountDiamondizationAsUnconsciousness = true)
+		public EarthboundPartyMember[] GetConsciousCharacters(bool DiscludeDiamondized = true)
 		{
 			//TODO: Make this more efficient
 			//TODO: Return only characters that are in the current party
 			List<EarthboundPartyMember> ConsciousCharacters = PlayableParty.ToList();
 			foreach (EarthboundPartyMember PartyMember in PlayableParty)
 			{
-				if (PartyMember.PermanentStatusEffect == PermanentStatusEffect.Unconsciousness)
-				{
-					ConsciousCharacters.Remove(PartyMember);
-				}
-				if (!CountDiamondizationAsUnconsciousness) continue;
+				if (!PartyMember.Conscious) ConsciousCharacters.Remove(PartyMember);
+				if (!DiscludeDiamondized) continue;
 				if (PartyMember.PermanentStatusEffect == PermanentStatusEffect.Diamondization)
 				{
 					ConsciousCharacters.Remove(PartyMember);

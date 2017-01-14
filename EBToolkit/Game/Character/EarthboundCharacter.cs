@@ -110,6 +110,14 @@ namespace EBToolkit.Game.Character
 		{
 			return Math.Max((double)(this.Guts / 500), 1.0 / 20);
 		}
+
+		/// <summary>
+		/// Gets whether this character is currently conscious.
+		/// </summary>
+		public bool Conscious
+		{
+			get { return PermanentStatusEffect != PermanentStatusEffect.Unconsciousness; }
+		}
 	}
 
 	/// <summary>
