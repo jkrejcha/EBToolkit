@@ -44,8 +44,10 @@ namespace EBToolkit.Game.Character
 		public readonly EarthboundPartyMember[] PlayableParty = new EarthboundPartyMember[PlayableCharacterCount];
 
 		/// <summary>
-		/// Gets the chance that an <see cref="EarthboundCharacter"/> will run from
-		/// the playable party. In EarthBound, this is only used for <see cref="EarthboundEnemy">enemies</see>.
+		/// Gets the chance that an <see cref="EarthboundCharacter"/> will run
+		/// from the playable party. In EarthBound, this is only used for
+		/// <see cref="EarthboundEnemy">enemies</see>. This does not apply if an
+		/// event flag is set, in which case the enemy will always run away.
 		/// </summary>
 		/// <param name="Other">The other character to test</param>
 		/// <returns>If the sum of levels is greater than <paramref name="Other"/>'s

@@ -62,6 +62,8 @@
     <Compile Include="Game\Inventory\Item.cs" />
     <Compile Include="Game\Inventory\PlayerInventory.cs" />
     <Compile Include="Game\Point.cs" />
+    <Compile Include="Game\Saving\SaveFormatInfo.cs" />
+    <Compile Include="Game\Saving\SaveRamFormatInfo.cs" />
     <Compile Include="Game\Text\EarthboundEncoding.cs" />
     <Compile Include="Game\Text\EarthboundPlainTextEncoding.cs" />
     <Compile Include="Gui\Controls\NumericUpDownByte.cs">

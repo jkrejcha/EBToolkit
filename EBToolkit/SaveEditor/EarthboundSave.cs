@@ -37,14 +37,25 @@ namespace EBToolkit.SaveEditor
 		[Obsolete("A BinaryWriter is being used here instead")]
 		public const int EscargoExpressDataOffset = 0x76;
 		/// <summary>
-		/// The size of the save file in bytes (I'm not entirely sure of this value).
+		/// The size of the save file in bytes.
 		/// </summary>
-		public const int SaveLength = 0x27E; // I think...
+		public const int SaveLength = 0x500; // I think...
 		/// <summary>
 		/// The offset in the save where flags are being stored
 		/// </summary>
 		[Obsolete("A BinaryWriter is being used instead")]
 		public const int FlagOffset = 0x433;
+
+		/// <summary>
+		/// The magic string that denotes this is an EarthBound save file.
+		/// </summary>
+		public const String MagicString = "HAL Laboratory, inc.";
+
+		/// <summary>
+		/// The prefix used for PSI <see cref="FavoriteThinng"/>. This is what
+		/// is used to determine the existance of a save file.
+		/// </summary>
+		public const String PSIPrefix = "PSI ";
 		
 		//TODO: Maybe Mother 2 support sometime?
 		/// <summary>
@@ -90,6 +101,14 @@ namespace EBToolkit.SaveEditor
 		/// Money in the ATM. May crash the game if over $9,999,999 (0x98967F).
 		/// </summary>
 		public uint ATM;
+		/// <summary>
+		/// Whether PSI powers have been learned.
+		/// </summary>
+		/// <remarks>
+		/// Not sure if it affects anything. It might affect whether the "PSI"
+		/// option is available in the menu.
+		/// </remarks>
+		public bool PSILearned;
 		/// <summary>
 		/// Storage for Escargo Express
 		/// </summary>
@@ -138,19 +157,30 @@ namespace EBToolkit.SaveEditor
 			//Writer.Seek(0x44, SeekOrigin.Begin); // Offset 0x44 for the pet name. should change this later
 			Writer.Write(PlainTextEncoding.GetBytesPadded(PetName, NameSize));
 			Writer.Write(PlainTextEncoding.GetBytesPadded(FavoriteFood, NameSize));
-			Writer.Seek(0x04, SeekOrigin.Current); 
-			//There's a difference of 4 bytes between the favorite food and favorite thing
-			//TODO: Document whether there is any data here that can be modified.
-			Writer.Write(PlainTextEncoding.GetBytesPadded(FavoriteThing + " ", NameSize + 1));
+			Writer.Write(PlainTextEncoding.GetBytes(PSIPrefix));
+			Writer.Write(PlainTextEncoding.GetBytesPadded(FavoriteThing, NameSize));
+			Writer.Write(PlainTextEncoding.GetBytesPadded(" ", 2)); // go with me here
 			Writer.Write(Money);
 			Writer.Write(ATM);
-			Writer.Seek(0x13, SeekOrigin.Current); // please seek 0x13 for more stuffs
+			Writer.Write(PSILearned);
+			Writer.Seek(0x06, SeekOrigin.Current); // Unknown. Appears to be 0x00 in my saves
+			Writer.Write((byte)(0x00)); // State party is in. TODO: Fix magic number
+			Writer.Seek(0x0A, SeekOrigin.Current); // Unknown. Not always 0x00
 			EscargoExpress.WriteDataToStream(Writer);
-			Location.WriteDataToStream(Writer);
-			//TODO: Write the party member count and order here
+			Writer.Seek(0x08, SeekOrigin.Current); // Unknown. Not really even close to 0x00
+			Location.WriteDataToStream(Writer); //TODO: Verify how positioning is stored.
+			Writer.Write((byte)(0x00)); // Direction. TODO: FIX THIS!
+			Writer.Seek(0x03, SeekOrigin.Current); // More unknown data.
+			Writer.Write((byte)(0x00)); // Party movement style. Need more info
+			Writer.Seek(0x07, SeekOrigin.Current); // More of this.
+			//TODO: Write the party member order here
+			Writer.Seek(0x0D, SeekOrigin.Current); // ...
+			//TODO: Write party member count here
+			Writer.Seek(0x0C, SeekOrigin.Current); // (all zero?)
 			ExitMouseLocation.WriteDataToStream(Writer);
 			Writer.Write((byte)TextSpeed);
 			Writer.Write((byte)SoundSetting);
+			Writer.Seek(0x112, SeekOrigin.Current);
 			Writer.Write(Timer);
 			Writer.Write((byte)WindowFlavor);
 			Party.WriteDataToStream(Writer);
