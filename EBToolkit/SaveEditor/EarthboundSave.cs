@@ -52,7 +52,7 @@ namespace EBToolkit.SaveEditor
 		public const String MagicString = "HAL Laboratory, inc.";
 
 		/// <summary>
-		/// The prefix used for PSI <see cref="FavoriteThinng"/>. This is what
+		/// The prefix used for PSI <see cref="FavoriteThing"/>. This is what
 		/// is used to determine the existance of a save file.
 		/// </summary>
 		public const String PSIPrefix = "PSI ";
@@ -150,9 +150,12 @@ namespace EBToolkit.SaveEditor
 		/// <inheritdoc/>
 		public void WriteDataToStream(BinaryWriter Writer)
 		{
+			//TODO: Refactor and verify places in save file
+			Writer.Write(System.Text.Encoding.ASCII.GetBytes(MagicString));
 			EarthboundPlainTextEncoding PlainTextEncoding = new EarthboundPlainTextEncoding();
-			Writer.Seek(0x2C, SeekOrigin.Current);
-			//TODO: Document whether there is any data here that can modified.
+			Writer.Seek(0x0D, SeekOrigin.Current); // Unknown data.
+			//TODO: Rewrite "English" name with space replaced with K
+			Writer.Seek(0x0C, SeekOrigin.Current);
 			Writer.Write(PlainTextEncoding.GetBytesPadded(PlayerName, PlayerNameSize));
 			//Writer.Seek(0x44, SeekOrigin.Begin); // Offset 0x44 for the pet name. should change this later
 			Writer.Write(PlainTextEncoding.GetBytesPadded(PetName, NameSize));
