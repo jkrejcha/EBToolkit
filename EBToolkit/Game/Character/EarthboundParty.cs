@@ -43,6 +43,14 @@ namespace EBToolkit.Game.Character
 		/// </summary>
 		public readonly EarthboundPartyMember[] PlayableParty = new EarthboundPartyMember[PlayableCharacterCount];
 
+		//TODO: Change this to an enum value
+		/// <summary>
+		/// Gets the order of the party members, including those not directly
+		/// controlled by the player.
+		/// </summary>
+		[Obsolete("Will be changed to an enum value")]
+		public readonly byte[] PartyOrder = new byte[MaxPartyCount];
+
 		/// <summary>
 		/// Gets the chance that an <see cref="EarthboundCharacter"/> will run
 		/// from the playable party. In EarthBound, this is only used for
@@ -101,7 +109,8 @@ namespace EBToolkit.Game.Character
 		/// </remarks>
 		public bool CanInstantWin(BattleGroup Group, bool SurpriseAttack)
 		{
-			if (Group.Enemies.Length > GetNonAfflictedCharacters().Length) return false;
+			EarthboundPartyMember[] NormalCharacters = GetNonAfflictedCharacters();
+			if (Group.Enemies.Length > NormalCharacters.Length) return false;
 			throw new NotImplementedException();
 		}
 

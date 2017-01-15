@@ -28,7 +28,18 @@ namespace EBToolkit.Game.Character
 		/// higher than this, doing so may cause odd glitches.
 		/// </summary>
 		public ushort MaxValue;
-
+		/// <summary>
+		/// The fractional part of the rolling meter. The range of values allowed
+		/// is 0x00 to 0xE0 in multiples of 32 (0x20).
+		/// </summary>
+		public byte RollingFraction;
+		/// <summary>
+		/// Whether the HP is currently in the process of rolling up or down
+		/// </summary>
+		public bool Rolling
+		{
+			get { return Value != MaxValue; }
+		}
 		/// <summary>
 		/// Writes <see cref="Value"/> and <see cref="RollingValue"/> to a <see cref="BinaryWriter"/>
 		/// This method does not do anything with the <see cref="MaxValue"/> property.
@@ -37,6 +48,8 @@ namespace EBToolkit.Game.Character
 		/// <seealso cref="EarthboundSaveable.WriteDataToStream(BinaryWriter)"/>
 		public void WriteDataToStream(BinaryWriter Writer)
 		{
+			Writer.Write(Rolling);
+			Writer.Write(RollingFraction);
 			Writer.Write(Value);
 			Writer.Write(RollingValue);
 		}

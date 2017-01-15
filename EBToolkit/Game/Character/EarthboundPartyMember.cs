@@ -102,6 +102,8 @@ namespace EBToolkit.Game.Character
 			Writer.Write(Experience);
 			Writer.Write(HP.MaxValue);
 			Writer.Write(PP.MaxValue);
+			Writer.Write((byte)PermanentStatusEffect);
+			Writer.Write((byte)PossessionStatus);
 			Writer.Write(Offense.Value); //TODO: Make this better.
 			Writer.Write(Defense.Value);
 			Writer.Write(Speed.Value);
@@ -120,7 +122,7 @@ namespace EBToolkit.Game.Character
 			Inventory.WriteDataToStream(Writer);
 			HP.WriteDataToStream(Writer);
 			PP.WriteDataToStream(Writer);
-			throw new NotImplementedException("Status effects not implemented");
+			throw new NotImplementedException("Weaknesses, miss rates, permanent boosts, other statues, etc");
 		}
 
 		/// <summary>

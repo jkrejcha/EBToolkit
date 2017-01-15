@@ -144,8 +144,8 @@ namespace EBToolkit.SaveEditor
 		/// </summary>
 		public TextSpeed TextSpeed;
 		/// <summary>
-		/// Whether <see cref="SoundSetting.Stereo"/>Stereo or 
-		/// <see cref="SoundSetting.Mono"/>sound should be used.
+		/// Whether <see cref="SoundSetting.Stereo"/> or 
+		/// <see cref="SoundSetting.Mono"/> sound should be used.
 		/// </summary>
 		public SoundSetting SoundSetting;
 		/// <summary>
@@ -165,18 +165,7 @@ namespace EBToolkit.SaveEditor
 		public void WriteDataToStream(BinaryWriter Writer)
 		{
 			//TODO: Refactor and verify places in save file
-			Writer.Write(System.Text.Encoding.ASCII.GetBytes(MagicString));
-			EarthboundPlainTextEncoding PlainTextEncoding = new EarthboundPlainTextEncoding();
-			Writer.Seek(0x0D, SeekOrigin.Current); // Unknown data.
-			//TODO: Rewrite "English" name with space replaced with K
-			Writer.Seek(0x0C, SeekOrigin.Current);
-			Writer.Write(PlainTextEncoding.GetBytesPadded(PlayerName, PlayerNameSize));
-			//Writer.Seek(0x44, SeekOrigin.Begin); // Offset 0x44 for the pet name. should change this later
-			Writer.Write(PlainTextEncoding.GetBytesPadded(PetName, NameSize));
-			Writer.Write(PlainTextEncoding.GetBytesPadded(FavoriteFood, NameSize));
-			Writer.Write(PlainTextEncoding.GetBytes(PSIPrefix));
-			Writer.Write(PlainTextEncoding.GetBytesPadded(FavoriteThing, NameSize));
-			Writer.Write(PlainTextEncoding.GetBytesPadded(" ", 2)); // go with me here
+			WriteText(Writer);
 			Writer.Write(Money);
 			Writer.Write(ATM);
 			Writer.Write(PSILearned);
@@ -201,6 +190,36 @@ namespace EBToolkit.SaveEditor
 			Writer.Write(Timer);
 			Writer.Write((byte)WindowFlavor);
 			Party.WriteDataToStream(Writer);
+			WriteEventFlags(Writer);
+			throw new NotImplementedException("Party number and party order not implemented");
+		}
+
+		/// <summary>
+		/// Writes the text portion of the save file to a <see cref="BinaryWriter"/>
+		/// </summary>
+		/// <param name="Writer">The <see cref="BinaryWriter"/> to write to</param>
+		private void WriteText(BinaryWriter Writer)
+		{
+			Writer.Write(System.Text.Encoding.ASCII.GetBytes(MagicString));
+			EarthboundPlainTextEncoding PlainTextEncoding = new EarthboundPlainTextEncoding();
+			Writer.Seek(0x0D, SeekOrigin.Current); // Unknown data.
+			//TODO: Rewrite "English" name with space replaced with K
+			Writer.Seek(0x0C, SeekOrigin.Current);
+			Writer.Write(PlainTextEncoding.GetBytesPadded(PlayerName, PlayerNameSize));
+			//Writer.Seek(0x44, SeekOrigin.Begin); // Offset 0x44 for the pet name. should change this later
+			Writer.Write(PlainTextEncoding.GetBytesPadded(PetName, NameSize));
+			Writer.Write(PlainTextEncoding.GetBytesPadded(FavoriteFood, NameSize));
+			Writer.Write(PlainTextEncoding.GetBytes(PSIPrefix));
+			Writer.Write(PlainTextEncoding.GetBytesPadded(FavoriteThing, NameSize));
+			Writer.Write(PlainTextEncoding.GetBytesPadded(" ", 2)); // go with me here
+		}
+
+		/// <summary>
+		/// Writes the event flags to a <see cref="BinaryWriter"/>
+		/// </summary>
+		/// <param name="Writer">The <see cref="BinaryWriter"/> to write to</param>
+		private void WriteEventFlags(BinaryWriter Writer)
+		{
 			for (int eventFlagIndex = 0; eventFlagIndex < EventFlagSize; eventFlagIndex++)
 			{
 				byte eventFlagByte = 0;
@@ -210,7 +229,6 @@ namespace EBToolkit.SaveEditor
 				}
 				Writer.Write(eventFlagByte);
 			}
-			throw new NotImplementedException("Party number and party order not implemented");
 		}
 	}
 
