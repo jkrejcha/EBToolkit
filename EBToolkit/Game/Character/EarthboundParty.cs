@@ -43,13 +43,11 @@ namespace EBToolkit.Game.Character
 		/// </summary>
 		public readonly EarthboundPartyMember[] PlayableParty = new EarthboundPartyMember[PlayableCharacterCount];
 
-		//TODO: Change this to an enum value
 		/// <summary>
 		/// Gets the order of the party members, including those not directly
 		/// controlled by the player.
 		/// </summary>
-		[Obsolete("Will be changed to an enum value")]
-		public readonly byte[] PartyOrder = new byte[MaxPartyCount];
+		public readonly EarthboundPartyMemberType[] PartyOrder = new EarthboundPartyMemberType[MaxPartyCount];
 
 		/// <summary>
 		/// Gets the chance that an <see cref="EarthboundCharacter"/> will run
@@ -167,6 +165,34 @@ namespace EBToolkit.Game.Character
 		}
 
 		/// <summary>
+		/// Gets the amount of currently playable party members in the current
+		/// party
+		/// </summary>
+		public byte PlayablePartyCount
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		/// <summary>
+		/// Gets the amount of members in the current active party
+		/// </summary>
+		public byte PartyCount
+		{
+			get
+			{
+				byte Members = 0;
+				foreach (EarthboundPartyMemberType PartyMember in PartyOrder)
+				{
+					if (PartyMember != EarthboundPartyMemberType.None) Members++;
+				}
+				return Members;
+			}
+		}
+
+		/// <summary>
 		/// A value which is equivalent to each of the playable character's
 		/// levels added together
 		/// </summary>
@@ -192,6 +218,32 @@ namespace EBToolkit.Game.Character
 			{
 				PartyMember.WriteDataToStream(Writer);
 			}
+		}
+
+		/// <summary>
+		/// An enum value representing the party members that can exist in
+		/// EarthBound.
+		/// </summary>
+		public enum EarthboundPartyMemberType : byte
+		{
+			None = 0,
+			Ness = 1,
+			Paula = 2,
+			Jeff = 3,
+			Poo = 4,
+			Pokey = 5,
+			Picky = 6,
+			King = 7,
+			Tony = 8,
+			BubbleMonkey = 9,
+			DungeonMan = 10,
+			FlyingMan1 = 11,
+			FlyingMan2 = 12,
+			FlyingMan3 = 13,
+			FlyingMan4 = 14,
+			FlyingMan5 = 15,
+			TeddyBear = 16,
+			SuperPlushBear = 17,
 		}
 	}
 }

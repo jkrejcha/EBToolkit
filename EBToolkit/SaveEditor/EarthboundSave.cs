@@ -157,7 +157,8 @@ namespace EBToolkit.SaveEditor
 		/// </summary>
 		public readonly EarthboundParty Party = new EarthboundParty();
 		/// <summary>
-		/// Event flags, used for triggering various events and actions within the game
+		/// Event flags, used for triggering various events, actions, and 
+		/// enemies within the game
 		/// </summary>
 		public readonly bool[] EventFlags = new bool[EventFlagSize];
 
@@ -179,9 +180,14 @@ namespace EBToolkit.SaveEditor
 			Writer.Seek(0x03, SeekOrigin.Current); // More unknown data.
 			Writer.Write((byte)(0x00)); // Party movement style. Need more info
 			Writer.Seek(0x07, SeekOrigin.Current); // More of this.
-			//TODO: Write the party member order here
+			foreach (EarthboundParty.EarthboundPartyMemberType PartyMemberType in Party.PartyOrder)
+			{
+				Writer.Write((byte)PartyMemberType);
+			}
+			//TODO: Write playable party here... (might have to use a class instead of an enum)
 			Writer.Seek(0x0D, SeekOrigin.Current); // ...
-			//TODO: Write party member count here
+			Writer.Write(Party.PartyCount);
+			Writer.Write(Party.PlayablePartyCount);
 			Writer.Seek(0x0C, SeekOrigin.Current); // (all zero?)
 			ExitMouseLocation.WriteDataToStream(Writer);
 			Writer.Write((byte)TextSpeed);
@@ -191,7 +197,7 @@ namespace EBToolkit.SaveEditor
 			Writer.Write((byte)WindowFlavor);
 			Party.WriteDataToStream(Writer);
 			WriteEventFlags(Writer);
-			throw new NotImplementedException("Party number and party order not implemented");
+			throw new NotImplementedException("Some party stuff not implemented");
 		}
 
 		/// <summary>
@@ -203,7 +209,7 @@ namespace EBToolkit.SaveEditor
 			Writer.Write(System.Text.Encoding.ASCII.GetBytes(MagicString));
 			EarthboundPlainTextEncoding PlainTextEncoding = new EarthboundPlainTextEncoding();
 			Writer.Seek(0x0D, SeekOrigin.Current); // Unknown data.
-			//TODO: Rewrite "English" name with space replaced with K
+			//TODO: Rewrite "Japanese" name with space replaced with K
 			Writer.Seek(0x0C, SeekOrigin.Current);
 			Writer.Write(PlainTextEncoding.GetBytesPadded(PlayerName, PlayerNameSize));
 			//Writer.Seek(0x44, SeekOrigin.Begin); // Offset 0x44 for the pet name. should change this later
