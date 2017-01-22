@@ -172,7 +172,12 @@ namespace EBToolkit.Game.Character
 		{
 			get
 			{
-				throw new NotImplementedException();
+				byte Members = 0;
+				foreach (EarthboundPartyMemberType PartyMember in PartyOrder)
+				{
+					if (PartyMember.IsPlayable()) Members++;
+				}
+				return Members;
 			}
 		}
 
@@ -218,32 +223,6 @@ namespace EBToolkit.Game.Character
 			{
 				PartyMember.WriteDataToStream(Writer);
 			}
-		}
-
-		/// <summary>
-		/// An enum value representing the party members that can exist in
-		/// EarthBound.
-		/// </summary>
-		public enum EarthboundPartyMemberType : byte
-		{
-			None = 0,
-			Ness = 1,
-			Paula = 2,
-			Jeff = 3,
-			Poo = 4,
-			Pokey = 5,
-			Picky = 6,
-			King = 7,
-			Tony = 8,
-			BubbleMonkey = 9,
-			DungeonMan = 10,
-			FlyingMan1 = 11,
-			FlyingMan2 = 12,
-			FlyingMan3 = 13,
-			FlyingMan4 = 14,
-			FlyingMan5 = 15,
-			TeddyBear = 16,
-			SuperPlushBear = 17,
 		}
 	}
 }

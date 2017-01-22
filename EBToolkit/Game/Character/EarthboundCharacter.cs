@@ -183,8 +183,8 @@ namespace EBToolkit.Game.Character
 		/// <seealso cref="Cold"/>
 		Sunstroke = 6,
 		/// <summary>
-		/// A status effect that deals little damage every turn and every few
-		/// seconds out of battle
+		/// A status effect that deals low level damage every turn and every 
+		/// few seconds out of battle
 		/// </summary>
 		/// <seealso cref="Nausea"/>
 		/// <seealso cref="Poison"/>

@@ -180,7 +180,7 @@ namespace EBToolkit.SaveEditor
 			Writer.Seek(0x03, SeekOrigin.Current); // More unknown data.
 			Writer.Write((byte)(0x00)); // Party movement style. Need more info
 			Writer.Seek(0x07, SeekOrigin.Current); // More of this.
-			foreach (EarthboundParty.EarthboundPartyMemberType PartyMemberType in Party.PartyOrder)
+			foreach (EarthboundPartyMemberType PartyMemberType in Party.PartyOrder)
 			{
 				Writer.Write((byte)PartyMemberType);
 			}

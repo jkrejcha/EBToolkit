@@ -52,6 +52,7 @@
     <Compile Include="Game\Character\EarthboundCharacter.cs" />
     <Compile Include="Game\Character\EarthboundEnemy.cs" />
     <Compile Include="Game\Character\EarthboundParty.cs" />
+    <Compile Include="Game\Character\EarthboundPartyMemberType.cs" />
     <Compile Include="Game\Character\EquipmentChangeableStat.cs" />
     <Compile Include="Game\Character\EarthboundPartyMember.cs" />
     <Compile Include="Game\Character\RollingStat.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Game\Saving\SaveRamFormatInfo.cs" />
     <Compile Include="Game\Text\EarthboundEncoding.cs" />
     <Compile Include="Game\Text\EarthboundPlainTextEncoding.cs" />
+    <Compile Include="Game\Text\Mother2Encoding.cs" />
     <Compile Include="Gui\Controls\NumericUpDownByte.cs">
       <SubType>Component</SubType>
     </Compile>

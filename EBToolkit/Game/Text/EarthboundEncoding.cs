@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Contracts;
 using System.Text;
 
 namespace EBToolkit.Game.Text
@@ -31,6 +32,8 @@ namespace EBToolkit.Game.Text
 		/// limit of <paramref name="size"/></returns>
 		public byte[] GetBytesPadded(string s, int size)
 		{
+			Contract.Requires<ArgumentNullException>(s != null);
+			Contract.Requires<ArgumentOutOfRangeException>(size >= 0);
 			byte[] finalArray = new byte[size];
 			byte[] unpadded = GetBytes(s);
 			for (int i = 0; i < finalArray.Length; i++)
