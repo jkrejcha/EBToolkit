@@ -18,6 +18,7 @@ namespace EBToolkit.Game.Text
 		/// <inheritdoc/>
 		public override byte[] GetBytes(string s)
 		{
+			Contract.Requires<ArgumentNullException>(s != null);
 			return this.ShiftBytes(base.GetBytes(s), true);
 		}
 
@@ -46,6 +47,7 @@ namespace EBToolkit.Game.Text
 		/// <inheritdoc/>
 		public override string GetString(byte[] bytes)
 		{
+			Contract.Requires<ArgumentNullException>(bytes != null);
 			return base.GetString(this.ShiftBytes(bytes, false));
 		}
 

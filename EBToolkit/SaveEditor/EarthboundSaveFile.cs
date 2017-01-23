@@ -10,9 +10,9 @@ namespace EBToolkit.SaveEditor
 	/// A class that represents a save file in the game EarthBound. This is a
 	/// container for <see cref="GameSaveCount"/> objects of <see cref="EarthboundSave"/>
 	/// and contains methods for loading and saving save files. 
-	/// <b style="color:red">Many methods in this class are subject to change
+	/// <para><b style="color:red">Many methods in this class are subject to change
 	/// and are not guaranteed to be fully functional (even moreso than the
-	/// rest of the project).</b>
+	/// rest of the project).</b></para>
 	/// </summary>
 	public class EarthboundSaveFile
 	{
@@ -62,7 +62,7 @@ namespace EBToolkit.SaveEditor
 		/// <summary>
 		/// Saves the game to disk
 		/// </summary>
-		/// <param name="Path"></param>
+		/// <param name="Path">File path to save to</param>
 		public void Save(String Path)
 		{
 			throw new NotImplementedException("Saving save files not implemented yet.");
@@ -71,7 +71,7 @@ namespace EBToolkit.SaveEditor
 
 	/// <summary>
 	/// The type of save file a <see cref="EarthboundSaveFile"/> is
-	/// <b style="color:red">THIS IS SUBJECT TO CHANGE</b>
+	/// <para><b style="color:red">THIS IS SUBJECT TO CHANGE</b></para>
 	/// </summary>
 	public enum SaveFileType
 	{

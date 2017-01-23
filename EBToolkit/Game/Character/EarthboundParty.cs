@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -28,14 +29,12 @@ namespace EBToolkit.Game.Character
 		/// glitches as well. 
 		/// </remarks>
 		public const uint DeathGlitchExperience = 4294940287;
+
 		/// <summary>
 		/// The playable characters there are in EarthBound
 		/// </summary>
 		public const int PlayableCharacterCount = 4;
-		/// <summary>
-		/// The maximum amount of characters that can be part of the party
-		/// </summary>
-		public const int MaxPartyCount = 6;
+
 		/// <summary>
 		/// The party members that are playable characters. All characters, even
 		/// if they are unable to be controlled, are part of this. Each element
@@ -44,10 +43,10 @@ namespace EBToolkit.Game.Character
 		public readonly EarthboundPartyMember[] PlayableParty = new EarthboundPartyMember[PlayableCharacterCount];
 
 		/// <summary>
-		/// Gets the order of the party members, including those not directly
+		/// The order of the party members, including those not directly
 		/// controlled by the player.
 		/// </summary>
-		public readonly EarthboundPartyMemberType[] PartyOrder = new EarthboundPartyMemberType[MaxPartyCount];
+		public readonly EarthboundPartyMemberOrder PartyOrder = new EarthboundPartyMemberOrder();
 
 		/// <summary>
 		/// Gets the chance that an <see cref="EarthboundCharacter"/> will run
@@ -107,6 +106,7 @@ namespace EBToolkit.Game.Character
 		/// </remarks>
 		public bool CanInstantWin(BattleGroup Group, bool SurpriseAttack)
 		{
+			Contract.Requires<ArgumentNullException>(Group != null);
 			EarthboundPartyMember[] NormalCharacters = GetNonAfflictedCharacters();
 			if (Group.Enemies.Length > NormalCharacters.Length) return false;
 			throw new NotImplementedException();
@@ -143,7 +143,10 @@ namespace EBToolkit.Game.Character
 		/// Gets characters that are not afflicted with a permanent status effect
 		/// or a possession of some sort
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>
+		/// An array of <see cref="EarthboundPartyMember"/> that have no status
+		/// effect currently applied or is not possessed.
+		/// </returns>
 		public EarthboundPartyMember[] GetNonAfflictedCharacters()
 		{
 			//TODO: Document properly.
@@ -172,12 +175,7 @@ namespace EBToolkit.Game.Character
 		{
 			get
 			{
-				byte Members = 0;
-				foreach (EarthboundPartyMemberType PartyMember in PartyOrder)
-				{
-					if (PartyMember.IsPlayable()) Members++;
-				}
-				return Members;
+				return (byte)PartyOrder.PlayableCount;
 			}
 		}
 

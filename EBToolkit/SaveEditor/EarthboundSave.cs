@@ -184,7 +184,10 @@ namespace EBToolkit.SaveEditor
 			{
 				Writer.Write((byte)PartyMemberType);
 			}
-			//TODO: Write playable party here... (might have to use a class instead of an enum)
+			foreach (EarthboundPartyMemberType PartyMemberType in Party.PartyOrder.PlayableParty)
+			{
+				Writer.Write((byte)PartyMemberType);
+			}
 			Writer.Seek(0x0D, SeekOrigin.Current); // ...
 			Writer.Write(Party.PartyCount);
 			Writer.Write(Party.PlayablePartyCount);
@@ -197,7 +200,7 @@ namespace EBToolkit.SaveEditor
 			Writer.Write((byte)WindowFlavor);
 			Party.WriteDataToStream(Writer);
 			WriteEventFlags(Writer);
-			throw new NotImplementedException("Some party stuff not implemented");
+			throw new NotImplementedException("Direction/party movement style not implemented");
 		}
 
 		/// <summary>

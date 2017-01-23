@@ -52,6 +52,7 @@
     <Compile Include="Game\Character\EarthboundCharacter.cs" />
     <Compile Include="Game\Character\EarthboundEnemy.cs" />
     <Compile Include="Game\Character\EarthboundParty.cs" />
+    <Compile Include="Game\Character\EarthboundPartyMemberOrder.cs" />
     <Compile Include="Game\Character\EarthboundPartyMemberType.cs" />
     <Compile Include="Game\Character\EquipmentChangeableStat.cs" />
     <Compile Include="Game\Character\EarthboundPartyMember.cs" />
@@ -105,8 +106,6 @@
       <DependentUpon>Resources.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Gui\EBToolkit.Gui_BAK\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
