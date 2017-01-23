@@ -36,6 +36,20 @@ namespace EBToolkit.Game.Character
 		public const int PlayableCharacterCount = 4;
 
 		/// <summary>
+		/// Minimum chance that the party can run away. While in practice this
+		/// value could be lower than this number, a value less than this isn't
+		/// any more useful and doesn't make much sense.
+		/// </summary>
+		public const double MinimumRunChance = 0.0;
+
+		/// <summary>
+		/// Maximum chance that the party can run away. While in practice this
+		/// value could be higher than this number, a value greater than this
+		/// isn't any more useful and doesn't make much sense.
+		/// </summary>
+		public const double MaximumRunChance = 1.0;
+
+		/// <summary>
 		/// The party members that are playable characters. All characters, even
 		/// if they are unable to be controlled, are part of this. Each element
 		/// of this is what is saved in <see cref="WriteDataToStream(BinaryWriter)"/>
@@ -49,24 +63,69 @@ namespace EBToolkit.Game.Character
 		public readonly EarthboundPartyMemberOrder PartyOrder = new EarthboundPartyMemberOrder();
 
 		/// <summary>
+		/// Gets the chance that the party will successfully run away from a
+		/// battle group. The minimum chance is defined by <see cref="MinimumRunChance"/>
+		/// and the maximum by <see cref="MaximumRunChance"/>. This will get
+		/// the lowest chance from every enemy in the group.
+		/// </summary>
+		/// <param name="group">Group to get run chance for</param>
+		/// <param name="turnNumber">Turn number in battle</param>
+		/// <returns>
+		/// A <see cref="Double"/> value representing a chance that the current
+		/// party will run away from <paramref name="group"/>.
+		/// </returns>
+		public double GetRunAwayChance(BattleGroup group, int turnNumber)
+		{
+			double runAwayChance = MaximumRunChance;
+			foreach (EarthboundEnemy enemy in group.Enemies)
+			{
+				double enemyChance = GetRunAwayChance(enemy, turnNumber);
+				if (enemyChance < runAwayChance) runAwayChance = enemyChance;
+				// no point in continuing if there's no chance of going higher
+				if (runAwayChance == MinimumRunChance) return runAwayChance;
+			}
+			return runAwayChance;
+		}
+
+		/// <summary>
+		/// Gets the chance that the party will successfully run away from an
+		/// enemy. The minimum chance is defined by <see cref="MinimumRunChance"/>
+		/// and the maximum by <see cref="MaximumRunChance"/>.
+		/// </summary>
+		/// <param name="enemy">Enemy to get run chance for</param>
+		/// <param name="turnNumber">Turn number in battle</param>
+		/// <returns>
+		/// A <see cref="Double"/> value representing a chance that the current
+		/// party will run away from <paramref name="enemy"/>.
+		/// </returns>
+		public double GetRunAwayChance(EarthboundEnemy enemy, int turnNumber)
+		{
+			if (!enemy.CanRunAwayFrom) return MinimumRunChance;
+			double chance = Double.NaN;
+			Contract.Ensures(chance >= MinimumRunChance); // minimum chance is 0%
+			Contract.Ensures(chance <= MaximumRunChance); // maximum chance is 100%
+			throw new NotImplementedException();
+		}
+
+		/// <summary>
 		/// Gets the chance that an <see cref="EarthboundCharacter"/> will run
 		/// from the playable party. In EarthBound, this is only used for
 		/// <see cref="EarthboundEnemy">enemies</see>. This does not apply if an
 		/// event flag is set, in which case the enemy will always run away.
 		/// </summary>
-		/// <param name="Other">The other character to test</param>
-		/// <returns>If the sum of levels is greater than <paramref name="Other"/>'s
+		/// <param name="other">The other character to test</param>
+		/// <returns>If the sum of levels is greater than <paramref name="other"/>'s
 	    /// level by 10, 1. If eight times, 0.75. If five times 0.5. Otherwise 0.
 		/// </returns>
 		/// <remarks>
 		/// This function is adapted from the equation on the <a href="https://starmen.net/mother2/gameinfo/technical/equations.php">Starmen.net equations page</a>.
 		/// </remarks>
-		public double GetOutOfBattleRunChance(EarthboundCharacter Other)
+		public double GetOutOfBattleRunChance(EarthboundCharacter other)
 		{
 			//TODO: Magic number
-			if (SumOfLevels > Other.Level * 10) return 1;
-			if (SumOfLevels > Other.Level * 8) return 0.75;
-			if (SumOfLevels > Other.Level * 5) return 0.5;
+			if (SumOfLevels > other.Level * 10) return 1;
+			if (SumOfLevels > other.Level * 8) return 0.75;
+			if (SumOfLevels > other.Level * 5) return 0.5;
 			return 0;
 		}
 
@@ -74,7 +133,7 @@ namespace EBToolkit.Game.Character
 		/// Gets the amount of experience earned per character on defeat of a
 		/// battle group
 		/// </summary>
-		/// <param name="Group">The battle group to use</param>
+		/// <param name="group">The battle group to use</param>
 		/// <returns>An <see cref="uint"/> representing the amount of experience
 		/// each <see cref="EarthboundPartyMember"/> recieves or 
 		/// <see cref="DeathGlitchExperience"/> if no consicous members are alive</returns>
@@ -87,28 +146,28 @@ namespace EBToolkit.Game.Character
 		/// <seealso cref="BattleGroup"/>
 		/// <seealso cref="BattleGroup.TotalExperience"/>
 		/// <seealso cref="DeathGlitchExperience"/>
-		public uint GetPerCharacterExperienceOnWin(BattleGroup Group)
+		public uint GetPerCharacterExperienceOnWin(BattleGroup group)
 		{
 			uint Alive = (uint)GetConsciousCharacters().Length;
 			if (Alive == 0) return DeathGlitchExperience;
-			return Group.TotalExperience / Alive;
+			return group.TotalExperience / Alive;
 		}
 
 		/// <summary>
 		/// Gets whether the party can perform an instant win against the enemies
 		/// in this battle formation.
 		/// </summary>
-		/// <param name="Group">The battle group to check against</param>
-		/// <param name="SurpriseAttack">Whether this is a surprise attack</param>
+		/// <param name="group">The battle group to check against</param>
+		/// <param name="surpriseAttack">Whether this is a surprise attack</param>
 		/// <returns>Whether an instant win will be performed</returns>
 		/// <remarks>
 		/// This function is adapted from the equation on the <a href="https://starmen.net/mother2/gameinfo/technical/equations.php">Starmen.net equations page</a>.
 		/// </remarks>
-		public bool CanInstantWin(BattleGroup Group, bool SurpriseAttack)
+		public bool CanInstantWin(BattleGroup group, bool surpriseAttack)
 		{
-			Contract.Requires<ArgumentNullException>(Group != null);
+			Contract.Requires<ArgumentNullException>(group != null);
 			EarthboundPartyMember[] NormalCharacters = GetNonAfflictedCharacters();
-			if (Group.Enemies.Length > NormalCharacters.Length) return false;
+			if (group.Enemies.Length > NormalCharacters.Length) return false;
 			throw new NotImplementedException();
 		}
 

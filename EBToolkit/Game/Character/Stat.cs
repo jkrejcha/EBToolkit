@@ -64,17 +64,36 @@ namespace EBToolkit.Game.Character
 		}
 		#endregion
 		#region "Multiplication"
+		/// <summary>
+		/// Multiplies the value of <paramref name="Left"/> with
+		/// <paramref name="Right"/>
+		/// </summary>
+		/// <param name="Left">Stat to be multiplied</param>
+		/// <param name="Right">Value to multiply <paramref name="Left"/> by</param>
+		/// <returns>
+		/// The <see cref="Value"/> of <paramref name="Left"/> multiplied by <paramref name="Right"/>
+		/// </returns>
 		public static ushort operator *(Stat Left, ushort Right)
 		{
 			return (ushort)(Left.Value * Right);
 		}
 		#endregion
 		#region "Division"
+		/// <summary>
+		/// Divides the value of <paramref name="Left"/> with
+		/// <paramref name="Right"/>
+		/// </summary>
+		/// <param name="Left">Stat to be divided</param>
+		/// <param name="Right">Value to divide <paramref name="Left"/> by</param>
+		/// <returns>
+		/// The <see cref="Value"/> of <paramref name="Left"/> divided by <paramref name="Right"/>
+		/// </returns>
 		public static ushort operator /(Stat Left, ushort Right)
 		{
 			return (ushort)(Left.Value / Right);
 		}
 
+		/// <inheritdoc cref="operator /(Stat, ushort)"/>
 		public static double operator /(Stat Left, double Right)
 		{
 			return (double)Left.Value / Right;

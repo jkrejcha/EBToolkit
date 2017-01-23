@@ -8,6 +8,10 @@ using System.Threading.Tasks;
 
 namespace EBToolkit.Game.Character
 {
+	/// <summary>
+	/// A class representing the order of current party members of an
+	/// <see cref="EarthboundParty"/>.
+	/// </summary>
 	public class EarthboundPartyMemberOrder : IList<EarthboundPartyMemberType>
 	{
 		/// <summary>
@@ -162,6 +166,7 @@ namespace EBToolkit.Game.Character
 			return baseArray.Contains(item);
 		}
 
+		/// <inheritdoc/>
 		public void CopyTo(EarthboundPartyMemberType[] array, int arrayIndex)
 		{
 			throw new NotImplementedException();
@@ -180,6 +185,7 @@ namespace EBToolkit.Game.Character
 			throw new NotImplementedException();
 		}
 
+		/// <inheritdoc/>
 		public void Insert(int index, EarthboundPartyMemberType item)
 		{
 			Contract.Requires<ArgumentOutOfRangeException>(index >= 0);
