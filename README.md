@@ -5,7 +5,9 @@ This project aims to add features to augment the EarthBound experience by adding
 
 ##Planned Features
 
-- **EarthBound Live**, which is a feature that uses the ability to view and modify the game's memory to 
+- **EarthBound Live**, which is a feature that uses the ability to view and modify the game's memory to provide functions to make decisions or provide alternate ways of gameplay.
+
+- **Save Editor**, which modifies (and possibly creates?) save games to be used.
 
 ##Documentation
 
