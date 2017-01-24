@@ -7,7 +7,7 @@ namespace EBToolkit.Game.Character
 	/// Represents a statistic that can have a rolling value (in EarthBound this
 	/// is used for <see cref="EarthboundCharacter.HP"/> and <see cref="EarthboundCharacter.PP"/>.
 	/// </summary>
-	public class RollingStat : EarthboundSaveable
+	public struct RollingStat : EarthboundSaveable
 	{
 		/// <summary>
 		/// The value of this rolling stat. The <see cref="RollingValue"/> will

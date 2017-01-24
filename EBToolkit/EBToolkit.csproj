@@ -53,6 +53,7 @@
     <Compile Include="Game\Character\EarthboundEnemy.cs" />
     <Compile Include="Game\Character\EarthboundParty.cs" />
     <Compile Include="Game\Character\EarthboundPartyMemberOrder.cs" />
+    <Compile Include="Game\Character\EarthboundPartyMemberOrderEnumerator.cs" />
     <Compile Include="Game\Character\EarthboundPartyMemberType.cs" />
     <Compile Include="Game\Character\EquipmentChangeableStat.cs" />
     <Compile Include="Game\Character\EarthboundPartyMember.cs" />

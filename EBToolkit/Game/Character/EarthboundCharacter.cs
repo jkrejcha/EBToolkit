@@ -12,6 +12,11 @@ namespace EBToolkit.Game.Character
 	public abstract class EarthboundCharacter
 	{
 		/// <summary>
+		/// The minimum value for <see cref="GetGutsChance"/>
+		/// </summary>
+		public const double MinimumGutsChance = 1.0 / 20.0;
+
+		/// <summary>
 		/// Represents the name that is given to this character. This is either fixed
 		/// (for NPCs and enemies) or chosen at the start of the game (for PCs). The
 		/// limit on length is determined by the game (EarthBound has a longer limit
@@ -109,7 +114,7 @@ namespace EBToolkit.Game.Character
 		/// </remarks>
 		public double GetGutsChance()
 		{
-			return Math.Max((double)(this.Guts / 500), 1.0 / 20);
+			return Math.Max((double)(this.Guts / 500d), MinimumGutsChance);
 		}
 
 		/// <summary>
@@ -168,7 +173,7 @@ namespace EBToolkit.Game.Character
 		/// <seealso cref="Cold"/>
 		Nausea = 4,
 		/// <summary>
-		/// A status effect that deals mid level damage every turn and every
+		/// A status effect that deals high level damage every turn and every
 		/// few seconds out of battle.
 		/// </summary>
 		/// <seealso cref="Nausea"/>

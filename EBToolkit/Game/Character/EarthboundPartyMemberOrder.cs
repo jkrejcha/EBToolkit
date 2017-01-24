@@ -140,7 +140,6 @@ namespace EBToolkit.Game.Character
 			Contract.Requires<IndexOutOfRangeException>(Count < MaxPartyCount);
 			Contract.Assert(Contains(EarthboundPartyMemberType.None)); // sanity check
 			baseArray[IndexOf(EarthboundPartyMemberType.None)] = item;
-			throw new NotImplementedException();
 		}
 
 		/// <summary>
@@ -175,14 +174,17 @@ namespace EBToolkit.Game.Character
 		/// <inheritdoc/>
 		public IEnumerator<EarthboundPartyMemberType> GetEnumerator()
 		{
-			// hopefully that doesn't screw anything up
-			return (IEnumerator<EarthboundPartyMemberType>)(baseArray.GetEnumerator());
+			return new EarthboundPartyMemberOrderEnumerator(baseArray);
 		}
 
 		/// <inheritdoc/>
 		public int IndexOf(EarthboundPartyMemberType item)
 		{
-			throw new NotImplementedException();
+			for (int i = 0; i < baseArray.Length; i++)
+			{
+				if (item == this[i]) return i;
+			}
+			return -1;
 		}
 
 		/// <inheritdoc/>

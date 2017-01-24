@@ -74,6 +74,10 @@ namespace EBToolkit.Game.Character
 		/// A <see cref="Double"/> value representing a chance that the current
 		/// party will run away from <paramref name="group"/>.
 		/// </returns>
+		/// <seealso cref="GetRunAwayChance(EarthboundEnemy, int)"/>
+		/// <remarks>
+		/// This function is adapted from the equation on the <a href="https://starmen.net/mother2/gameinfo/technical/equations.php">Starmen.net equations page</a>.
+		/// </remarks>
 		public double GetRunAwayChance(BattleGroup group, int turnNumber)
 		{
 			double runAwayChance = MaximumRunChance;
@@ -81,7 +85,7 @@ namespace EBToolkit.Game.Character
 			{
 				double enemyChance = GetRunAwayChance(enemy, turnNumber);
 				if (enemyChance < runAwayChance) runAwayChance = enemyChance;
-				// no point in continuing if there's no chance of going higher
+				// no point in continuing if there's no chance of going lower
 				if (runAwayChance == MinimumRunChance) return runAwayChance;
 			}
 			return runAwayChance;
@@ -98,13 +102,25 @@ namespace EBToolkit.Game.Character
 		/// A <see cref="Double"/> value representing a chance that the current
 		/// party will run away from <paramref name="enemy"/>.
 		/// </returns>
+		/// <seealso cref="GetRunAwayChance(BattleGroup, int)"/>
+		/// <remarks>
+		/// This function is adapted from the equation on the <a href="https://starmen.net/mother2/gameinfo/technical/equations.php">Starmen.net equations page</a>.
+		/// </remarks>
 		public double GetRunAwayChance(EarthboundEnemy enemy, int turnNumber)
 		{
 			if (!enemy.CanRunAwayFrom) return MinimumRunChance;
-			double chance = Double.NaN;
+			double chance = MinimumRunChance;
+			byte speed = Byte.MinValue;
+			foreach (EarthboundPartyMember partyMember in PlayableParty)
+			{
+				speed = Math.Max(speed, partyMember.Speed.Value);
+			}
+			chance = (speed - enemy.Speed.Value + 10.0 * turnNumber) / 100.0;
+			// Constrain values to ensure contract is met
+			chance = Math.Max(Math.Min(chance, MaximumRunChance), MinimumRunChance);
 			Contract.Ensures(chance >= MinimumRunChance); // minimum chance is 0%
 			Contract.Ensures(chance <= MaximumRunChance); // maximum chance is 100%
-			throw new NotImplementedException();
+			return chance;
 		}
 
 		/// <summary>
