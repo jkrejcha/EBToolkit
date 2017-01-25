@@ -106,6 +106,10 @@ namespace EBToolkit.Game.Character
 		{
 			get
 			{
+				/* We can do this because the chosen four are always the first
+				 * members in the party. If we find a non-playable party member,
+				 * we can stop.
+				 */
 				for (int partyMemberIndex = 0; partyMemberIndex < EarthboundParty.PlayableCharacterCount; partyMemberIndex++)
 				{
 					if (!this[partyMemberIndex].IsPlayable()) return partyMemberIndex;

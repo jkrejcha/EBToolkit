@@ -84,7 +84,7 @@ namespace EBToolkit.Game.Character
 			foreach (EarthboundEnemy enemy in group.Enemies)
 			{
 				double enemyChance = GetRunAwayChance(enemy, turnNumber);
-				if (enemyChance < runAwayChance) runAwayChance = enemyChance;
+				runAwayChance = Math.Min(enemyChance, runAwayChance);
 				// no point in continuing if there's no chance of going lower
 				if (runAwayChance == MinimumRunChance) return runAwayChance;
 			}
@@ -167,9 +167,9 @@ namespace EBToolkit.Game.Character
 		/// <seealso cref="DeathGlitchExperience"/>
 		public uint GetPerCharacterExperienceOnWin(BattleGroup group)
 		{
-			uint Alive = (uint)GetConsciousCharacters().Length;
-			if (Alive == 0) return DeathGlitchExperience;
-			return group.TotalExperience / Alive;
+			uint alive = (uint)GetConsciousCharacters().Length;
+			if (alive == 0) return DeathGlitchExperience;
+			return group.TotalExperience / alive;
 		}
 
 		/// <summary>
@@ -204,17 +204,17 @@ namespace EBToolkit.Game.Character
 		{
 			//TODO: Make this more efficient
 			//TODO: Return only characters that are in the current party
-			List<EarthboundPartyMember> ConsciousCharacters = PlayableParty.ToList();
-			foreach (EarthboundPartyMember PartyMember in PlayableParty)
+			List<EarthboundPartyMember> consciousCharacters = PlayableParty.ToList();
+			foreach (EarthboundPartyMember partyMember in PlayableParty)
 			{
-				if (!PartyMember.Conscious) ConsciousCharacters.Remove(PartyMember);
+				if (!partyMember.Conscious) consciousCharacters.Remove(partyMember);
 				if (!discludeDiamondized) continue;
-				if (PartyMember.PermanentStatusEffect == PermanentStatusEffect.Diamondization)
+				if (partyMember.PermanentStatusEffect == PermanentStatusEffect.Diamondization)
 				{
-					ConsciousCharacters.Remove(PartyMember);
+					consciousCharacters.Remove(PartyMember);
 				}
 			}
-			return ConsciousCharacters.ToArray();
+			return consciousCharacters.ToArray();
 		}
 
 		/// <summary>
@@ -230,19 +230,20 @@ namespace EBToolkit.Game.Character
 			//TODO: Document properly.
 			//TODO: Probably make this more efficient.
 			//TODO: Return only characters that are in the current party
-			List<EarthboundPartyMember> NonAfflictedCharacters = PlayableParty.ToList();
-			foreach (EarthboundPartyMember PartyMember in PlayableParty)
+			List<EarthboundPartyMember> nonAfflictedCharacters = PlayableParty.ToList();
+			foreach (EarthboundPartyMember partyMember in PlayableParty)
 			{
-				if (PartyMember.PermanentStatusEffect != PermanentStatusEffect.Normal)
+				if (partyMember.PermanentStatusEffect != PermanentStatusEffect.Normal)
 				{
-					NonAfflictedCharacters.Remove(PartyMember);
+					nonAfflictedCharacters.Remove(partyMember);
+					continue;
 				}
-				if (PartyMember.PossessionStatus != PossessionStatus.Normal)
+				if (partyMember.PossessionStatus != PossessionStatus.Normal)
 				{
-					NonAfflictedCharacters.Remove(PartyMember);
+					nonAfflictedCharacters.Remove(partyMember);
 				}
 			}
-			return NonAfflictedCharacters.ToArray();
+			return nonAfflictedCharacters.ToArray();
 		}
 
 		/// <summary>
@@ -264,12 +265,12 @@ namespace EBToolkit.Game.Character
 		{
 			get
 			{
-				byte Members = 0;
-				foreach (EarthboundPartyMemberType PartyMember in PartyOrder)
+				byte members = 0;
+				foreach (EarthboundPartyMemberType partyMember in PartyOrder)
 				{
-					if (PartyMember != EarthboundPartyMemberType.None) Members++;
+					if (partyMember != EarthboundPartyMemberType.None) members++;
 				}
-				return Members;
+				return members;
 			}
 		}
 
@@ -281,9 +282,9 @@ namespace EBToolkit.Game.Character
 		{
 			get
 			{
-				ushort Level = 0;
-				foreach (EarthboundPartyMember PartyMember in PlayableParty) Level += PartyMember.Level;
-				return Level;
+				ushort level = 0;
+				foreach (EarthboundPartyMember PartyMember in PlayableParty) level += PartyMember.Level;
+				return level;
 			}
 		}
 
@@ -295,9 +296,9 @@ namespace EBToolkit.Game.Character
 		/// <param name="Writer">The <see cref="BinaryWriter"/> to write to.</param>
 		public void WriteDataToStream(BinaryWriter Writer)
 		{
-			foreach (EarthboundPartyMember PartyMember in PlayableParty)
+			foreach (EarthboundPartyMember partyMember in PlayableParty)
 			{
-				PartyMember.WriteDataToStream(Writer);
+				partyMember.WriteDataToStream(Writer);
 			}
 		}
 	}

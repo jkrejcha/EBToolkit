@@ -31,9 +31,9 @@ namespace EBToolkit.Game
 		{
 			get
 			{
-				uint Exp = 0;
-				foreach (EarthboundEnemy Enemy in Enemies) Exp += Enemy.Experience;
-				return Exp;
+				uint exp = 0;
+				foreach (EarthboundEnemy enemy in Enemies) exp += enemy.Experience;
+				return exp;
 			}
 		}
 	}
