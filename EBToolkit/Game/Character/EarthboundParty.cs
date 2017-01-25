@@ -100,7 +100,9 @@ namespace EBToolkit.Game.Character
 		/// <param name="turnNumber">Turn number in battle</param>
 		/// <returns>
 		/// A <see cref="Double"/> value representing a chance that the current
-		/// party will run away from <paramref name="enemy"/>.
+		/// party will run away from <paramref name="enemy"/>. If
+		/// <see cref="EarthboundEnemy.CanRunAwayFrom"> is <see langword="false"/>,
+		/// 0.0.
 		/// </returns>
 		/// <seealso cref="GetRunAwayChance(BattleGroup, int)"/>
 		/// <remarks>
@@ -118,6 +120,7 @@ namespace EBToolkit.Game.Character
 			chance = (speed - enemy.Speed.Value + 10.0 * turnNumber) / 100.0;
 			// Constrain values to ensure contract is met
 			chance = Math.Max(Math.Min(chance, MaximumRunChance), MinimumRunChance);
+			Contract.Ensures(!Double.IsNaN(chance)); // it is a number! :)
 			Contract.Ensures(chance >= MinimumRunChance); // minimum chance is 0%
 			Contract.Ensures(chance <= MaximumRunChance); // maximum chance is 100%
 			return chance;
@@ -190,14 +193,14 @@ namespace EBToolkit.Game.Character
 		/// <summary>
 		/// Gets the characters who are not <see cref="PermanentStatusEffect.Unconsciousness">unconscious</see>
 		/// </summary>
-		/// <param name="DiscludeDiamondized">Whether to count
+		/// <param name="discludeDiamondized">Whether to count
 		/// <see cref="PermanentStatusEffect.Diamondization"/> as unconsciousness</param>
 		/// <returns>An array of playable characters that are not <see cref="PermanentStatusEffect.Unconsciousness">unconscious</see></returns>
 		/// <seealso cref="PermanentStatusEffect"/>
 		/// <seealso cref="PermanentStatusEffect.Unconsciousness"/>
 		/// <seealso cref="PermanentStatusEffect.Diamondization"/>
 		/// <seealso cref="EarthboundPartyMember"/>
-		public EarthboundPartyMember[] GetConsciousCharacters(bool DiscludeDiamondized = true)
+		public EarthboundPartyMember[] GetConsciousCharacters(bool discludeDiamondized = true)
 		{
 			//TODO: Make this more efficient
 			//TODO: Return only characters that are in the current party
@@ -205,7 +208,7 @@ namespace EBToolkit.Game.Character
 			foreach (EarthboundPartyMember PartyMember in PlayableParty)
 			{
 				if (!PartyMember.Conscious) ConsciousCharacters.Remove(PartyMember);
-				if (!DiscludeDiamondized) continue;
+				if (!discludeDiamondized) continue;
 				if (PartyMember.PermanentStatusEffect == PermanentStatusEffect.Diamondization)
 				{
 					ConsciousCharacters.Remove(PartyMember);
