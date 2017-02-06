@@ -104,21 +104,18 @@ namespace EBToolkit.Game.Character
 			Writer.Write(PP.MaxValue);
 			Writer.Write((byte)PermanentStatusEffect);
 			Writer.Write((byte)PossessionStatus);
-			Writer.Write(Offense.Value); //TODO: Make this better.
-			Writer.Write(Defense.Value);
-			Writer.Write(Speed.Value);
-			Writer.Write(Guts.Value);
-			Writer.Write(Luck.Value);
-			Writer.Write(Vitality.Value);
-			Writer.Write(IQ.Value);
-
-			Writer.Write(Offense.BaseValue);
-			Writer.Write(Defense.BaseValue);
-			Writer.Write(Speed.BaseValue);
-			Writer.Write(Guts.BaseValue);
-			Writer.Write(Luck.BaseValue);
-			Writer.Write(Vitality.BaseValue);
-			Writer.Write(IQ.Value);
+			Writer.Write((byte)BattleStatusEffect);
+			Writer.Write(FeelingStrange);
+			Writer.Write(CantConcentrateTurns);
+			Writer.Write(Homesick);
+			//TODO: Shield
+			Offense.WriteDataToStream(Writer);
+			Defense.WriteDataToStream(Writer);
+			Speed.WriteDataToStream(Writer);
+			Guts.WriteDataToStream(Writer);
+			Luck.WriteDataToStream(Writer);
+			Vitality.WriteDataToStream(Writer);
+			IQ.WriteDataToStream(Writer);
 			Inventory.WriteDataToStream(Writer);
 			HP.WriteDataToStream(Writer);
 			PP.WriteDataToStream(Writer);

@@ -102,7 +102,7 @@ namespace EBToolkit.Game.Character
 		/// A <see cref="Double"/> value representing a chance that the current
 		/// party will run away from <paramref name="enemy"/>. If
 		/// <see cref="EarthboundEnemy.CanRunAwayFrom"/> is <see langword="false"/>,
-		/// 0.0.
+		/// <see cref="MinimumRunChance"/>.
 		/// </returns>
 		/// <seealso cref="GetRunAwayChance(BattleGroup, int)"/>
 		/// <remarks>

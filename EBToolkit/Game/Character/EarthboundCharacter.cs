@@ -103,6 +103,30 @@ namespace EBToolkit.Game.Character
 		public PossessionStatus PossessionStatus;
 
 		/// <summary>
+		/// Whether this character is "feeling strange". If a character is
+		/// feeling strange, they may attack an unintended target.
+		/// </summary>
+		public bool FeelingStrange;
+
+		/// <summary>
+		/// When non-zero, the character will not be able to use psychic abilities.
+		/// A message saying "But it didn't work very well." will show after trying
+		/// to use PSI.
+		/// </summary>
+		/// <remarks>
+		/// The range in-game for this value is 0-4.
+		/// </remarks>
+		public byte CantConcentrateTurns;
+
+		/// <summary>
+		/// Whether this character is homesick. If <see langword="true"/>, the
+		/// character may spend turns thinking about the favorite food.
+		/// </summary>
+		public bool Homesick;
+
+		public BattleStatusEffect BattleStatusEffect;
+
+		/// <summary>
 		/// Gets an estimated chance of surviving mortal damage (for PCs/NPCs)
 		/// and for SMAAAASH! attacks (for physical Bash type attacks).
 		/// </summary>
@@ -127,8 +151,8 @@ namespace EBToolkit.Game.Character
 
 	/// <summary>
 	/// A status effect that is applied to this <see cref="EarthboundCharacter">character</see>
-	/// permanently (or until a higher level status effect overrides 
-	/// or a healing heals it away). This can work in conjunction with a 
+	/// permanently (or until a higher level status effect overrides or a
+	/// healing heals it away). This can work in conjunction with a 
 	/// <see cref="PossessionStatus"/>.
 	/// </summary>
 	/// <remarks>
@@ -199,8 +223,8 @@ namespace EBToolkit.Game.Character
 
 	/// <summary>
 	/// A status effect that is applied to this <see cref="EarthboundCharacter">character</see>
-	/// permanently (or until a higher level status effect overrides 
-	/// or a healing heals it away). This can work in conjunction with a 
+	/// permanently (or until a higher level status effect overrides or a
+	/// healing heals it away). This can work in conjunction with a 
 	/// <see cref="PermanentStatusEffect"/>.
 	/// </summary>
 	/// <remarks>
@@ -231,5 +255,49 @@ namespace EBToolkit.Game.Character
 		/// oOoOoOo SPOOKY!
 		/// </remarks>
 		Possession = 2,
+	}
+
+	/// <summary>
+	/// A status effect that is applied to this <see cref="EarthboundCharacter">character</see>
+	/// for the duration of a battle (or until a higher level status effect
+	/// overrides or healing heals it away). This can work in conjunction with
+	/// a <see cref="PermanentStatusEffect"/> and <see cref="PossessionStatus"/>.
+	/// </summary>
+	/// <remarks>
+	/// In EarthBound, with the exception of <see cref="Normal"/>, the lower
+	/// numbered status effects take precedence over higher numbered ones. This
+	/// means that, for example, a <see cref="EarthboundCharacter"/> who is
+	/// </remarks>
+	public enum BattleStatusEffect : byte
+	{
+		/// <summary>
+		/// Everything is normal and happy :)
+		/// </summary>
+		Normal = 0,
+		/// <summary>
+		/// The character is asleep. The character cannot select an action
+		/// during battle.
+		/// </summary>
+		/// <remarks>
+		/// In EarthBound, the chance of waking up on a turn is 25%. Being hit 
+		/// with a physical attack that does not SMAAAASH! causes a 50% chance
+		/// of waking up.
+		/// </remarks>
+		Asleep = 1,
+		/// <summary>
+		/// Increases the miss rate for physical attacks by 8/16 (50%).
+		/// </summary>
+		Crying = 2,
+		/// <summary>
+		/// Causes the same effects as <see cref="PermanentStatusEffect.Paralysis"/>.
+		/// An immobilized character has an 85% of being able to move freely on
+		/// their turn.
+		/// </summary>
+		Immobilization = 3,
+		/// <summary>
+		/// Similar to <see cref="Asleep"/>, however this only lasts for one
+		/// turn.
+		/// </summary>
+		Solidification = 4,
 	}
 }
