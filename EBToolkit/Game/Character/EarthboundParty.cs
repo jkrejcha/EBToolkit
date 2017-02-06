@@ -101,7 +101,7 @@ namespace EBToolkit.Game.Character
 		/// <returns>
 		/// A <see cref="Double"/> value representing a chance that the current
 		/// party will run away from <paramref name="enemy"/>. If
-		/// <see cref="EarthboundEnemy.CanRunAwayFrom"> is <see langword="false"/>,
+		/// <see cref="EarthboundEnemy.CanRunAwayFrom"/> is <see langword="false"/>,
 		/// 0.0.
 		/// </returns>
 		/// <seealso cref="GetRunAwayChance(BattleGroup, int)"/>
@@ -167,7 +167,7 @@ namespace EBToolkit.Game.Character
 		/// <seealso cref="DeathGlitchExperience"/>
 		public uint GetPerCharacterExperienceOnWin(BattleGroup group)
 		{
-			uint alive = (uint)GetConsciousCharacters().Length;
+			uint alive = (uint)ConsciousCharacters.Length;
 			if (alive == 0) return DeathGlitchExperience;
 			return group.TotalExperience / alive;
 		}
@@ -185,65 +185,68 @@ namespace EBToolkit.Game.Character
 		public bool CanInstantWin(BattleGroup group, bool surpriseAttack)
 		{
 			Contract.Requires<ArgumentNullException>(group != null);
-			EarthboundPartyMember[] NormalCharacters = GetNonAfflictedCharacters();
+			EarthboundPartyMember[] NormalCharacters = NormalStatusCharacters;
 			if (group.Enemies.Length > NormalCharacters.Length) return false;
 			throw new NotImplementedException();
 		}
 
 		/// <summary>
-		/// Gets the characters who are not <see cref="PermanentStatusEffect.Unconsciousness">unconscious</see>
+		/// Gets the characters who are not 
+		/// <see cref="PermanentStatusEffect.Unconsciousness">unconscious</see>
 		/// </summary>
 		/// <param name="discludeDiamondized">Whether to count
 		/// <see cref="PermanentStatusEffect.Diamondization"/> as unconsciousness</param>
-		/// <returns>An array of playable characters that are not <see cref="PermanentStatusEffect.Unconsciousness">unconscious</see></returns>
+		/// <returns>
+		/// An array of playable characters that are not 
+		/// <see cref="PermanentStatusEffect.Unconsciousness">unconscious</see>
+		/// </returns>
 		/// <seealso cref="PermanentStatusEffect"/>
 		/// <seealso cref="PermanentStatusEffect.Unconsciousness"/>
 		/// <seealso cref="PermanentStatusEffect.Diamondization"/>
 		/// <seealso cref="EarthboundPartyMember"/>
 		public EarthboundPartyMember[] GetConsciousCharacters(bool discludeDiamondized = true)
 		{
-			//TODO: Make this more efficient
-			//TODO: Return only characters that are in the current party
-			List<EarthboundPartyMember> consciousCharacters = PlayableParty.ToList();
-			foreach (EarthboundPartyMember partyMember in PlayableParty)
+			return CurrentPlayableParty.Where(member => member.Conscious &&
+														(!discludeDiamondized || member.PermanentStatusEffect == PermanentStatusEffect.Diamondization)).ToArray();
+		}
+
+		//TODO: Document
+		public EarthboundPartyMember[] ConsciousCharacters
+		{
+			get
 			{
-				if (!partyMember.Conscious) consciousCharacters.Remove(partyMember);
-				if (!discludeDiamondized) continue;
-				if (partyMember.PermanentStatusEffect == PermanentStatusEffect.Diamondization)
-				{
-					consciousCharacters.Remove(PartyMember);
-				}
+				return GetConsciousCharacters();
 			}
-			return consciousCharacters.ToArray();
 		}
 
 		/// <summary>
 		/// Gets characters that are not afflicted with a permanent status effect
 		/// or a possession of some sort
 		/// </summary>
-		/// <returns>
-		/// An array of <see cref="EarthboundPartyMember"/> that have no status
-		/// effect currently applied or is not possessed.
-		/// </returns>
-		public EarthboundPartyMember[] GetNonAfflictedCharacters()
+		public EarthboundPartyMember[] NormalStatusCharacters
 		{
-			//TODO: Document properly.
-			//TODO: Probably make this more efficient.
-			//TODO: Return only characters that are in the current party
-			List<EarthboundPartyMember> nonAfflictedCharacters = PlayableParty.ToList();
-			foreach (EarthboundPartyMember partyMember in PlayableParty)
+			get
 			{
-				if (partyMember.PermanentStatusEffect != PermanentStatusEffect.Normal)
-				{
-					nonAfflictedCharacters.Remove(partyMember);
-					continue;
-				}
-				if (partyMember.PossessionStatus != PossessionStatus.Normal)
-				{
-					nonAfflictedCharacters.Remove(partyMember);
-				}
+				return CurrentPlayableParty.Where(member => member.PermanentStatusEffect == PermanentStatusEffect.Normal &&
+															member.PossessionStatus == PossessionStatus.Normal).ToArray();
 			}
-			return nonAfflictedCharacters.ToArray();
+		}
+
+		/// <summary>
+		/// Gets the members of the playable party that are currently in the
+		/// party
+		/// </summary>
+		public EarthboundPartyMember[] CurrentPlayableParty
+		{
+			get
+			{
+				EarthboundPartyMember[] party = new EarthboundPartyMember[PlayablePartyCount];
+				for (byte i = 0; i < PlayablePartyCount; i++)
+				{
+					party[i] = PlayableParty[i];
+				}
+				return party;
+			}
 		}
 
 		/// <summary>
@@ -265,12 +268,7 @@ namespace EBToolkit.Game.Character
 		{
 			get
 			{
-				byte members = 0;
-				foreach (EarthboundPartyMemberType partyMember in PartyOrder)
-				{
-					if (partyMember != EarthboundPartyMemberType.None) members++;
-				}
-				return members;
+				return (byte)PartyOrder.Count;
 			}
 		}
 
