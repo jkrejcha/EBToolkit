@@ -35,13 +35,13 @@ namespace EBToolkit.Game.Inventory
 		}
 
 		/// <inheritdoc/>
-		public virtual void WriteDataToStream(BinaryWriter Writer)
+		public virtual void WriteDataToStream(BinaryWriter writer)
 		{
 			Item[] items = this.Items;
 			for (int i = 0; i < items.Length; i++)
 			{
 				Item Item = items[i];
-				Writer.Write((byte)Item);
+				writer.Write((byte)Item);
 			}
 		}
 

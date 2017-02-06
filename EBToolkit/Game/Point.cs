@@ -93,31 +93,31 @@ namespace EBToolkit.Game
 			this.Y = Y;
 		}
 
-		public static Point operator +(Point Left, Point Right)
+		public static Point operator +(Point left, Point right)
 		{
-			return new Point((ushort)(Left.X + Right.X), (ushort)(Left.Y + Right.Y));
+			return new Point((ushort)(left.X + right.X), (ushort)(left.Y + right.Y));
 		}
 
-		public static Point operator -(Point Left, Point Right)
+		public static Point operator -(Point left, Point right)
 		{
-			return new Point((ushort)(Left.X - Right.X), (ushort)(Left.Y - Right.Y));
+			return new Point((ushort)(left.X - right.X), (ushort)(left.Y - right.Y));
 		}
 
-		public static implicit operator Point(System.Drawing.Point Point)
+		public static implicit operator Point(System.Drawing.Point point)
 		{
-			return new Point((ushort)Point.X, (ushort)Point.Y);
+			return new Point((ushort)point.X, (ushort)point.Y);
 		}
 
-		public static implicit operator Point(PointF Point)
+		public static implicit operator Point(PointF point)
 		{
-			return new Point((ushort)Point.X, (ushort)Point.Y);
+			return new Point((ushort)point.X, (ushort)point.Y);
 		}
 
 		/// <inheritdoc/>
-		public void WriteDataToStream(BinaryWriter Writer)
+		public void WriteDataToStream(BinaryWriter writer)
 		{
-			Writer.Write(this.X);
-			Writer.Write(this.Y);
+			writer.Write(this.X);
+			writer.Write(this.Y);
 		}
 	}
 }

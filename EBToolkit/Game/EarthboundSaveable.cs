@@ -14,6 +14,6 @@ namespace EBToolkit.Game
 		/// to a save file
 		/// </summary>
 		/// <param name="Writer"><see cref="BinaryWriter"/> to use</param>
-		void WriteDataToStream(BinaryWriter Writer);
+		void WriteDataToStream(BinaryWriter writer);
 	}
 }

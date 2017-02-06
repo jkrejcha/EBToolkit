@@ -25,10 +25,10 @@ namespace EBToolkit.Game.Inventory
 		public PlayerInventory() : base(PlayerInventorySize) { }
 
 		/// <inheritdoc/>
-		public override void WriteDataToStream(BinaryWriter Writer)
+		public override void WriteDataToStream(BinaryWriter writer)
 		{
 			base.WriteDataToStream(Writer);
-			foreach (byte Equip in Equips) Writer.Write(Equip);
+			foreach (byte Equip in Equips) writer.Write(Equip);
 		}
 	}
 }

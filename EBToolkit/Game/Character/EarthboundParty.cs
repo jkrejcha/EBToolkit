@@ -292,7 +292,7 @@ namespace EBToolkit.Game.Character
 		/// the ordering they are in.
 		/// </summary>
 		/// <param name="Writer">The <see cref="BinaryWriter"/> to write to.</param>
-		public void WriteDataToStream(BinaryWriter Writer)
+		public void WriteDataToStream(BinaryWriter writer)
 		{
 			foreach (EarthboundPartyMember partyMember in PlayableParty)
 			{

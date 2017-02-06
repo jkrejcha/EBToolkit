@@ -26,11 +26,11 @@ namespace EBToolkit.Game.Character
 		}
 
 		/// <inheritdoc/>
-		public void WriteDataToStream(BinaryWriter Writer)
+		public void WriteDataToStream(BinaryWriter writer)
 		{
-			Writer.Write(Value);
+			writer.Write(Value);
 			Writer.Seek(StatCount, SeekOrigin.Current);
-			Writer.Write(BaseValue);
+			writer.Write(BaseValue);
 			Writer.Seek(-StatCount - 1, SeekOrigin.Current);
 		}
 	}

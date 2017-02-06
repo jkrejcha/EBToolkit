@@ -94,20 +94,20 @@ namespace EBToolkit.Game.Character
 		}
 
 		/// <inheritdoc/>
-		public void WriteDataToStream(BinaryWriter Writer)
+		public void WriteDataToStream(BinaryWriter writer)
 		{
 			EarthboundPlainTextEncoding PlainTextEncoding = new EarthboundPlainTextEncoding();
-			Writer.Write(PlainTextEncoding.GetBytesPadded(Name, 5));
-			Writer.Write(Level);
-			Writer.Write(Experience);
-			Writer.Write(HP.MaxValue);
-			Writer.Write(PP.MaxValue);
-			Writer.Write((byte)PermanentStatusEffect);
-			Writer.Write((byte)PossessionStatus);
-			Writer.Write((byte)BattleStatusEffect);
-			Writer.Write(FeelingStrange);
-			Writer.Write(CantConcentrateTurns);
-			Writer.Write(Homesick);
+			writer.Write(PlainTextEncoding.GetBytesPadded(Name, 5));
+			writer.Write(Level);
+			writer.Write(Experience);
+			writer.Write(HP.MaxValue);
+			writer.Write(PP.MaxValue);
+			writer.Write((byte)PermanentStatusEffect);
+			writer.Write((byte)PossessionStatus);
+			writer.Write((byte)BattleStatusEffect);
+			writer.Write(FeelingStrange);
+			writer.Write(CantConcentrateTurns);
+			writer.Write(Homesick);
 			//TODO: Shield
 			Offense.WriteDataToStream(Writer);
 			Defense.WriteDataToStream(Writer);
@@ -119,7 +119,7 @@ namespace EBToolkit.Game.Character
 			Inventory.WriteDataToStream(Writer);
 			HP.WriteDataToStream(Writer);
 			PP.WriteDataToStream(Writer);
-			throw new NotImplementedException("Weaknesses, miss rates, permanent boosts, other statues, etc");
+			throw new NotImplementedException("Weaknesses, miss rates, permanent boosts, shields, etc");
 		}
 
 		/// <summary>

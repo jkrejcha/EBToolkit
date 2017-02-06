@@ -46,12 +46,12 @@ namespace EBToolkit.Game.Character
 		/// </summary>
 		/// <param name="Writer"></param>
 		/// <seealso cref="EarthboundSaveable.WriteDataToStream(BinaryWriter)"/>
-		public void WriteDataToStream(BinaryWriter Writer)
+		public void WriteDataToStream(BinaryWriter writer)
 		{
-			Writer.Write(Rolling);
-			Writer.Write(RollingFraction);
-			Writer.Write(Value);
-			Writer.Write(RollingValue);
+			writer.Write(Rolling);
+			writer.Write(RollingFraction);
+			writer.Write(Value);
+			writer.Write(RollingValue);
 		}
 	}
 }
