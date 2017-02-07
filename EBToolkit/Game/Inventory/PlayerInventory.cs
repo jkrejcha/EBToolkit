@@ -27,7 +27,7 @@ namespace EBToolkit.Game.Inventory
 		/// <inheritdoc/>
 		public override void WriteDataToStream(BinaryWriter writer)
 		{
-			base.WriteDataToStream(Writer);
+			base.WriteDataToStream(writer);
 			foreach (byte Equip in Equips) writer.Write(Equip);
 		}
 	}

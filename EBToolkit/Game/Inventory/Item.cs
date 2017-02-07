@@ -12,8 +12,32 @@ namespace EBToolkit.Game.Inventory
 		/// No item
 		/// </summary>
 		None = 000,
+		/// <summary>
+		/// <para>Represents the
+		/// <a href="https://wikibound.info/wiki/Franklin_Badge">Franklin Badge</a>,
+		/// an item that when in a user's inventory, reflects Lightning-based
+		/// attacks back at an attacker.</para>
+		/// <para>Not equippable.</para>
+		/// </summary>
 		FranklinBadge = 001,
+		/// <summary>
+		/// <para>Represents a
+		/// <a href="https://wikibound.info/wiki/List_of_battle_items_in_EarthBound#Teddy_bears">Teddy Snuggle Wuggle</a>,
+		/// which is an item that absorbs damage.
+		/// </para>
+		/// <para>Not equippable.</para>
+		/// </summary>
+		/// <seealso cref="SuperPlushBear"/>
+		/// <seealso cref="Character.EarthboundPartyMemberType.TeddyBear"/>
 		TeddyBear = 002,
+		/// <summary>
+		/// <para>Represents a version of <see cref="TeddyBear"/> which have 
+		/// more <see cref="Character.EarthboundCharacter.HP"/> and
+		/// <see cref="Character.EarthboundCharacter.Defense"/>.</para>
+		/// <para>Not equippable.</para>
+		/// </summary>
+		/// <seealso cref="TeddyBear"/>
+		/// <seealso cref="Character.EarthboundPartyMemberType.SuperPlushBear"/>
 		SuperPlushBear = 003,
 		BrokenMachine = 004,
 		BrokenGadget = 005,
@@ -264,6 +288,6 @@ namespace EBToolkit.Game.Inventory
 		Meteornium = 250,
 		Popsicle = 251,
 		CupOfLifenoodles = 252,
-		CarrotKey = 253
+		CarrotKey = 253,
 	}
 }

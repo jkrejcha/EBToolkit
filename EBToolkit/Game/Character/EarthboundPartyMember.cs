@@ -109,16 +109,16 @@ namespace EBToolkit.Game.Character
 			writer.Write(CantConcentrateTurns);
 			writer.Write(Homesick);
 			//TODO: Shield
-			Offense.WriteDataToStream(Writer);
-			Defense.WriteDataToStream(Writer);
-			Speed.WriteDataToStream(Writer);
-			Guts.WriteDataToStream(Writer);
-			Luck.WriteDataToStream(Writer);
-			Vitality.WriteDataToStream(Writer);
-			IQ.WriteDataToStream(Writer);
-			Inventory.WriteDataToStream(Writer);
-			HP.WriteDataToStream(Writer);
-			PP.WriteDataToStream(Writer);
+			Offense.WriteDataToStream(writer);
+			Defense.WriteDataToStream(writer);
+			Speed.WriteDataToStream(writer);
+			Guts.WriteDataToStream(writer);
+			Luck.WriteDataToStream(writer);
+			Vitality.WriteDataToStream(writer);
+			IQ.WriteDataToStream(writer);
+			Inventory.WriteDataToStream(writer);
+			HP.WriteDataToStream(writer);
+			PP.WriteDataToStream(writer);
 			throw new NotImplementedException("Weaknesses, miss rates, permanent boosts, shields, etc");
 		}
 

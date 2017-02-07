@@ -210,7 +210,10 @@ namespace EBToolkit.Game.Character
 														(!discludeDiamondized || member.PermanentStatusEffect == PermanentStatusEffect.Diamondization)).ToArray();
 		}
 
-		//TODO: Document
+		/// <summary>
+		/// Gets all characters that are conscious and not diamondized.
+		/// Equivalent to <see cref="GetConsciousCharacters(bool)"/>.
+		/// </summary>
 		public EarthboundPartyMember[] ConsciousCharacters
 		{
 			get
@@ -287,16 +290,16 @@ namespace EBToolkit.Game.Character
 		}
 
 		/// <summary>
-		/// Writes the contents of the party members to <paramref name="Writer"/>.
+		/// Writes the contents of the party members to <paramref name="writer"/>.
 		/// This does not write any data on the current count of party members or
 		/// the ordering they are in.
 		/// </summary>
-		/// <param name="Writer">The <see cref="BinaryWriter"/> to write to.</param>
+		/// <param name="writer">The <see cref="BinaryWriter"/> to write to.</param>
 		public void WriteDataToStream(BinaryWriter writer)
 		{
 			foreach (EarthboundPartyMember partyMember in PlayableParty)
 			{
-				partyMember.WriteDataToStream(Writer);
+				partyMember.WriteDataToStream(writer);
 			}
 		}
 	}

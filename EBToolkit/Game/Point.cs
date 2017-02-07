@@ -93,21 +93,50 @@ namespace EBToolkit.Game
 			this.Y = Y;
 		}
 
+		/// <summary>
+		/// Adds two <see cref="Point"/>s together.
+		/// </summary>
+		/// <param name="left">The first <see cref="Point"/></param>
+		/// <param name="right">The second <see cref="Point"/></param>
+		/// <returns>
+		/// A new <see cref="Point"/> with <see cref="X"/> and <see cref="Y"/>
+		/// of <paramref name="left"/> and <paramref name="right"/> added
+		/// together.
+		/// </returns>
 		public static Point operator +(Point left, Point right)
 		{
 			return new Point((ushort)(left.X + right.X), (ushort)(left.Y + right.Y));
 		}
 
+		/// <summary>
+		/// Subtracts two <see cref="Point"/>s.
+		/// </summary>
+		/// <param name="left">The first <see cref="Point"/></param>
+		/// <param name="right">The second <see cref="Point"/></param>
+		/// <returns>
+		/// A new <see cref="Point"/> with <see cref="X"/> and <see cref="Y"/>
+		/// of <paramref name="right"/> subtracted from <paramref name="left"/>.
+		/// </returns>
 		public static Point operator -(Point left, Point right)
 		{
 			return new Point((ushort)(left.X - right.X), (ushort)(left.Y - right.Y));
 		}
 
+		/// <summary>
+		/// Implicitly converts a <see cref="System.Drawing.Point"/> to a
+		/// <see cref="Point"/> used in this game.
+		/// </summary>
+		/// <param name="point">The <see cref="System.Drawing.Point"/> to convert</param>
 		public static implicit operator Point(System.Drawing.Point point)
 		{
 			return new Point((ushort)point.X, (ushort)point.Y);
 		}
 
+		/// <summary>
+		/// Implicitly converts a <see cref="System.Drawing.PointF"/> to a
+		/// <see cref="Point"/> used in this game.
+		/// </summary>
+		/// <param name="point">The <see cref="System.Drawing.PointF"/> to convert</param>
 		public static implicit operator Point(PointF point)
 		{
 			return new Point((ushort)point.X, (ushort)point.Y);

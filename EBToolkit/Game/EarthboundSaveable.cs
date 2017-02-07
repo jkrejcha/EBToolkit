@@ -13,7 +13,7 @@ namespace EBToolkit.Game
 		/// Writes data to a <see cref="BinaryWriter"/>, probably to be written
 		/// to a save file
 		/// </summary>
-		/// <param name="Writer"><see cref="BinaryWriter"/> to use</param>
+		/// <param name="writer"><see cref="BinaryWriter"/> to use</param>
 		void WriteDataToStream(BinaryWriter writer);
 	}
 }

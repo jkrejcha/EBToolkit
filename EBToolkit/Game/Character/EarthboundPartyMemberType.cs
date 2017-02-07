@@ -105,12 +105,14 @@ namespace EBToolkit.Game.Character
 		/// Represents a <a href="https://wikibound.info/wiki/List_of_battle_items_in_EarthBound#Teddy_bears">Teddy Snuggle Wuggle</a>,
 		/// which is an item that absorbs damage.
 		/// </summary>
+		/// <seealso cref="Inventory.Item.TeddyBear"/>
 		TeddyBear = 16,
 		/// <summary>
 		/// Represents a version of <see cref="TeddyBear"/> which has more
 		/// <see cref="EarthboundCharacter.HP"/> and
 		/// <see cref="EarthboundCharacter.Defense"/>.
 		/// </summary>
+		/// <seealso cref="Inventory.Item.SuperPlushBear"/>
 		SuperPlushBear = 17,
 	}
 

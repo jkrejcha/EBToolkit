@@ -44,7 +44,7 @@ namespace EBToolkit.Game.Character
 		/// Writes <see cref="Value"/> and <see cref="RollingValue"/> to a <see cref="BinaryWriter"/>
 		/// This method does not do anything with the <see cref="MaxValue"/> property.
 		/// </summary>
-		/// <param name="Writer"></param>
+		/// <param name="writer"></param>
 		/// <seealso cref="EarthboundSaveable.WriteDataToStream(BinaryWriter)"/>
 		public void WriteDataToStream(BinaryWriter writer)
 		{

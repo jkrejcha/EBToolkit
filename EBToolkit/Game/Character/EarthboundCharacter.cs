@@ -124,6 +124,10 @@ namespace EBToolkit.Game.Character
 		/// </summary>
 		public bool Homesick;
 
+		/// <summary>
+		/// The <see cref="BattleStatusEffect"/> that this character currently
+		/// has.
+		/// </summary>
 		public BattleStatusEffect BattleStatusEffect;
 
 		/// <summary>

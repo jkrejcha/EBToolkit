@@ -166,20 +166,20 @@ namespace EBToolkit.SaveEditor
 		public void WriteDataToStream(BinaryWriter writer)
 		{
 			//TODO: Refactor and verify places in save file
-			WriteText(Writer);
+			WriteText(writer);
 			writer.Write(Money);
 			writer.Write(ATM);
 			writer.Write(PSILearned);
-			Writer.Seek(0x06, SeekOrigin.Current); // Unknown. Appears to be 0x00 in my saves
+			writer.Seek(0x06, SeekOrigin.Current); // Unknown. Appears to be 0x00 in my saves
 			writer.Write((byte)(0x00)); // State party is in. TODO: Fix magic number
-			Writer.Seek(0x0A, SeekOrigin.Current); // Unknown. Not always 0x00
-			EscargoExpress.WriteDataToStream(Writer);
-			Writer.Seek(0x08, SeekOrigin.Current); // Unknown. Not really even close to 0x00
-			Location.WriteDataToStream(Writer); //TODO: Verify how positioning is stored.
+			writer.Seek(0x0A, SeekOrigin.Current); // Unknown. Not always 0x00
+			EscargoExpress.WriteDataToStream(writer);
+			writer.Seek(0x08, SeekOrigin.Current); // Unknown. Not really even close to 0x00
+			Location.WriteDataToStream(writer); //TODO: Verify how positioning is stored.
 			writer.Write((byte)(0x00)); // Direction. TODO: FIX THIS!
-			Writer.Seek(0x03, SeekOrigin.Current); // More unknown data.
+			writer.Seek(0x03, SeekOrigin.Current); // More unknown data.
 			writer.Write((byte)(0x00)); // Party movement style. Need more info
-			Writer.Seek(0x07, SeekOrigin.Current); // More of this.
+			writer.Seek(0x07, SeekOrigin.Current); // More of this.
 			foreach (EarthboundPartyMemberType PartyMemberType in Party.PartyOrder)
 			{
 				writer.Write((byte)PartyMemberType);
@@ -188,34 +188,34 @@ namespace EBToolkit.SaveEditor
 			{
 				writer.Write((byte)PartyMemberType);
 			}
-			Writer.Seek(0x0D, SeekOrigin.Current); // ...
+			writer.Seek(0x0D, SeekOrigin.Current); // ...
 			writer.Write(Party.PartyCount);
 			writer.Write(Party.PlayablePartyCount);
-			Writer.Seek(0x0C, SeekOrigin.Current); // (all zero?)
-			ExitMouseLocation.WriteDataToStream(Writer);
+			writer.Seek(0x0C, SeekOrigin.Current); // (all zero?)
+			ExitMouseLocation.WriteDataToStream(writer);
 			writer.Write((byte)TextSpeed);
 			writer.Write((byte)SoundSetting);
-			Writer.Seek(0x112, SeekOrigin.Current);
+			writer.Seek(0x112, SeekOrigin.Current);
 			writer.Write(Timer);
 			writer.Write((byte)WindowFlavor);
-			Party.WriteDataToStream(Writer);
-			WriteEventFlags(Writer);
+			Party.WriteDataToStream(writer);
+			WriteEventFlags(writer);
 			throw new NotImplementedException("Direction/party movement style not implemented");
 		}
 
 		/// <summary>
 		/// Writes the text portion of the save file to a <see cref="BinaryWriter"/>
 		/// </summary>
-		/// <param name="Writer">The <see cref="BinaryWriter"/> to write to</param>
+		/// <param name="writer">The <see cref="BinaryWriter"/> to write to</param>
 		private void WriteText(BinaryWriter writer)
 		{
 			writer.Write(System.Text.Encoding.ASCII.GetBytes(MagicString));
 			EarthboundPlainTextEncoding PlainTextEncoding = new EarthboundPlainTextEncoding();
-			Writer.Seek(0x0D, SeekOrigin.Current); // Unknown data.
+			writer.Seek(0x0D, SeekOrigin.Current); // Unknown data.
 			//TODO: Rewrite "Japanese" name with space replaced with K
-			Writer.Seek(0x0C, SeekOrigin.Current);
+			writer.Seek(0x0C, SeekOrigin.Current);
 			writer.Write(PlainTextEncoding.GetBytesPadded(PlayerName, PlayerNameSize));
-			//Writer.Seek(0x44, SeekOrigin.Begin); // Offset 0x44 for the pet name. should change this later
+			//writer.Seek(0x44, SeekOrigin.Begin); // Offset 0x44 for the pet name. should change this later
 			writer.Write(PlainTextEncoding.GetBytesPadded(PetName, NameSize));
 			writer.Write(PlainTextEncoding.GetBytesPadded(FavoriteFood, NameSize));
 			writer.Write(PlainTextEncoding.GetBytes(PSIPrefix));
@@ -226,7 +226,7 @@ namespace EBToolkit.SaveEditor
 		/// <summary>
 		/// Writes the event flags to a <see cref="BinaryWriter"/>
 		/// </summary>
-		/// <param name="Writer">The <see cref="BinaryWriter"/> to write to</param>
+		/// <param name="writer">The <see cref="BinaryWriter"/> to write to</param>
 		private void WriteEventFlags(BinaryWriter writer)
 		{
 			for (int eventFlagIndex = 0; eventFlagIndex < EventFlagSize; eventFlagIndex++)

@@ -29,9 +29,9 @@ namespace EBToolkit.Game.Character
 		public void WriteDataToStream(BinaryWriter writer)
 		{
 			writer.Write(Value);
-			Writer.Seek(StatCount, SeekOrigin.Current);
+			writer.Seek(StatCount, SeekOrigin.Current);
 			writer.Write(BaseValue);
-			Writer.Seek(-StatCount - 1, SeekOrigin.Current);
+			writer.Seek(-StatCount - 1, SeekOrigin.Current);
 		}
 	}
 }
