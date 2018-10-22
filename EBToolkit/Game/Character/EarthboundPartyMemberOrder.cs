@@ -124,10 +124,7 @@ namespace EBToolkit.Game.Character
 		/// </remarks>
 		public bool IsReadOnly
 		{
-			get
-			{
-				return false;
-			}
+            get => false;
 		}
 
 		/// <summary>
@@ -172,7 +169,7 @@ namespace EBToolkit.Game.Character
 		/// <inheritdoc/>
 		public void CopyTo(EarthboundPartyMemberType[] array, int arrayIndex)
 		{
-			throw new NotImplementedException();
+            array.CopyTo(baseArray, arrayIndex);
 		}
 
 		/// <inheritdoc/>

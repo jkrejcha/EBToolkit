@@ -16,5 +16,10 @@ namespace EBToolkit.Gui
 		{
 			InitializeComponent();
 		}
-	}
+
+        private void LoadTestButton_Click(object sender, EventArgs e)
+        {
+            FileDialog.ShowDialog();
+        }
+    }
 }

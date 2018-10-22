@@ -28,19 +28,37 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSaveEditor));
-			this.SuspendLayout();
-			// 
-			// FormSaveEditor
-			// 
-			resources.ApplyResources(this, "$this");
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.MaximizeBox = false;
-			this.Name = "FormSaveEditor";
-			this.ResumeLayout(false);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSaveEditor));
+            this.LoadTestButton = new System.Windows.Forms.Button();
+            this.FileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.SuspendLayout();
+            // 
+            // LoadTestButton
+            // 
+            resources.ApplyResources(this.LoadTestButton, "LoadTestButton");
+            this.LoadTestButton.Name = "LoadTestButton";
+            this.LoadTestButton.UseVisualStyleBackColor = true;
+            this.LoadTestButton.Click += new System.EventHandler(this.LoadTestButton_Click);
+            // 
+            // FileDialog
+            // 
+            resources.ApplyResources(this.FileDialog, "FileDialog");
+            this.FileDialog.SupportMultiDottedExtensions = true;
+            // 
+            // FormSaveEditor
+            // 
+            resources.ApplyResources(this, "$this");
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.LoadTestButton);
+            this.MaximizeBox = false;
+            this.Name = "FormSaveEditor";
+            this.ResumeLayout(false);
 
 		}
 
-		#endregion
-	}
+        #endregion
+
+        private System.Windows.Forms.Button LoadTestButton;
+        private System.Windows.Forms.OpenFileDialog FileDialog;
+    }
 }
